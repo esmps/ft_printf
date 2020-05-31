@@ -6,7 +6,7 @@
 /*   By: epines-s <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/22 13:49:55 by epines-s          #+#    #+#             */
-/*   Updated: 2020/05/30 20:16:59 by epines-s         ###   ########.fr       */
+/*   Updated: 2020/05/30 23:03:47 by epines-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,11 +27,16 @@ int64_t	strlenint(const char *fmt)
 	int64_t	i;
 
 	i = 0;
-	while (*fmt >= '1' && *fmt <= '9')
+	if (*fmt >= '1' && *fmt <= '9')
 	{
-		i++;
-		fmt++;
+		while (*fmt >= '0' && *fmt <= '9')
+		{
+			i++;
+			fmt++;
+		}
 	}
+	else
+		i = 1;
 	return (i);
 }
 
@@ -51,12 +56,13 @@ t_flags	*assignflags(const char *fmt, int64_t arg, t_flags *subspec)
 		subspec->leftal = 1;
 	if (*fmt == '.')
 	{
+		fmt++;
 		if (*fmt == '*')
 			subspec->precision = arg;
-		if (*fmt >= '1' && *fmt <= '9')
+		if (*fmt >= '0' && *fmt <= '9')
 		{
-			str = NULL;
-			while (*fmt >= '1' && *fmt <= '9')
+			str = (char *)malloc(sizeof(char) * strlenint(fmt) + 1);
+			while (*fmt >= '0' && *fmt <= '9')
 			{
 				str[i] = *fmt;
 				fmt++;
@@ -65,14 +71,13 @@ t_flags	*assignflags(const char *fmt, int64_t arg, t_flags *subspec)
 			res = ft_atoi(str);
 			subspec->precision = res;
 		}
-		fmt++;
 	}
 	if (*fmt == '*')
 		subspec->width = arg;
 	if (*fmt >= '1' && *fmt <= '9')
 	{
 		str = (char *)malloc(sizeof(char) * strlenint(fmt) + 1);
-		while (*fmt >= '1' && *fmt <= '9')
+		while (*fmt >= '0' && *fmt <= '9')
 		{
 			str[i] = *fmt;
 			fmt++;
@@ -93,8 +98,12 @@ char	*width(char *string, t_fmt format)
 
 	i = 0;
 	j = 0;
+	printf("Hi\n");
 	print = (char *)malloc(sizeof(char) * (format.flags.width + 1));
-	memset(print, ' ', (format.flags.width));
+	if (format.flags.zero == 1)
+		memset(print, '0', (format.flags.width) + 1);
+	else
+		memset(print, ' ', (format.flags.width) + 1);
 	if ((format.flags.precision) > 0)
 		strlen = (format.flags.precision);
 	else 
@@ -122,11 +131,30 @@ char	*ft_argc(int64_t character, t_fmt format)
 char	*ft_args(char *string, t_fmt format)
 {
 	char	*print;
+	int64_t	i;
 
-	if ((format.flags.width) != 0 && ((int64_t)(ft_strlen(string)) < (format.flags.width)))
+	i = 0;
+	printf("width: %lli\n", format.flags.width);
+	printf("precision: %lli\n", format.flags.precision);
+	printf("strlen: %zu\n", ft_strlen(string));
+	printf("zero: %lli\n", format.flags.zero);
+	if ((((format.flags.width) != 0 && ((int64_t)(ft_strlen(string)) < (format.flags.width))) && format.flags.precision < (int64_t)ft_strlen(string)) || (format.flags.width > format.flags.precision))
 		print = width(string, format);
-	else
-		print = ft_strdup(string);
+else
+	{
+		if (format.flags.precision > 0)
+		{
+			print = (char *)malloc(sizeof(char) * format.flags.precision + 1);
+			while (i < format.flags.precision)
+			{
+				print[i] = string[i];
+				i++;
+			}
+			print[i] = '\0';
+		}
+		else
+			print = ft_strdup(string);
+	}
 	return (print);
 }
 
@@ -277,7 +305,7 @@ int	ft_printf(const char *fmt, ...)
 			}
 			else if (fmt[i] == '%')
 			{
-				if (isspec(fmt[i + 1]) == 1 || isflag(fmt[i + 1] == 1) || (fmt[i + 1] >= '1' && fmt[i + 1] <= '9'))
+				if (isspec(fmt[i + 1]) == 1 || isflag(fmt[i + 1]) == 1 || (fmt[i + 1] >= '1' && fmt[i + 1] <= '9'))
 				{
 					temp = ft_substr(fmt, last_pos + 1, i - last_pos - 1);
 					temp = ft_strjoin(print, temp);
@@ -290,6 +318,9 @@ int	ft_printf(const char *fmt, ...)
 						if ((fmt[i] == '.' && fmt[i + 1] == '*') || (fmt[i] == '*'))
 							arg = va_arg(ap, int64_t);
 						assignflags(&fmt[i], arg, &(format.flags));
+						printf("fmt[i]: %c\n", fmt[i]);
+						if ((fmt[i] == '.' && fmt[i + 1] == '*') || fmt[i] == '.')
+							i++;
 						i = i + (strlenint(&fmt[i]));
 					}	
 					if (isspec(fmt[i]))
