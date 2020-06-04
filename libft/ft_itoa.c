@@ -6,27 +6,27 @@
 /*   By: epines-s <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/18 16:02:45 by epines-s          #+#    #+#             */
-/*   Updated: 2020/05/29 21:42:52 by epines-s         ###   ########.fr       */
+/*   Updated: 2020/06/03 14:48:45 by epines-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-static size_t	int_len(int64_t num)
+static size_t	int_len(int num)
 {
 	int	i;
 
 	i = 1;
 	if (num < 0)
-	i++;
+		i++;
 	while (num /= 10)
 		i++;
 	return (i);
 }
 
-static int64_t		pow(int n, int64_t p)
+static int		pow(int n, int p)
 {
-	int64_t	res;
+	int	res;
 
 	res = 1;
 	if (p < 0)
@@ -39,10 +39,10 @@ static int64_t		pow(int n, int64_t p)
 	return (res);
 }
 
-char			*ft_itoa(int64_t n)
+char			*ft_itoa(int n)
 {
 	size_t	len;
-	int64_t	x;
+	int	x;
 	char	*s;
 	char	*res;
 
@@ -51,9 +51,9 @@ char			*ft_itoa(int64_t n)
 	res = s;
 	if (!s)
 		return (NULL);
-	ft_memset(s, '0', (sizeof(char) * (len + 1)));
+	ft_memset(s, '0', (sizeof(char) * (len)));
 	s[len] = '\0';
-	x = pow(10, len - 1);
+	x = pow(10, len - 1 - (n < 0));
 	if (n == 0)
 		s++;
 	if (n < 0)

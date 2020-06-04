@@ -6,7 +6,7 @@
 /*   By: epines-s <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/18 16:13:11 by epines-s          #+#    #+#             */
-/*   Updated: 2020/05/29 21:40:47 by epines-s         ###   ########.fr       */
+/*   Updated: 2020/06/02 23:34:34 by epines-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ int					ft_atoi(const char *str);
 char				*ft_strchr(const char *s, int c);
 char				*ft_strnstr(const char *haystack, \
 					const char *needle, size_t len);
-char				*ft_itoa(int64_t n);
+char				*ft_itoa(int n);
 char				*ft_strrchr(const char *s, int c);
 char				*ft_strdup(const char *s1);
 char				*ft_strmapi(char const *s, char (*f)(unsigned int, char));

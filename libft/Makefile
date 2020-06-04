@@ -2,7 +2,7 @@ NAME = libft.a
 
 HEADER = libft.h
 
-FLAGS = -Wall -Wextra -Werror -g
+FLAGS = -Wall -Wextra -Werror -g -fsanitize=address
 
 SRCS = 		ft_atoi.c 		\
  		ft_bzero.c 		\
