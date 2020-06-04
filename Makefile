@@ -10,6 +10,10 @@ SRCS =		ft_printf.c		\
 		ft_itoa_unsigned.c 	\
 		ft_fmtstr.c		\
 		ft_fmtint.c		\
+		ft_intspec.c		\
+		ft_charspec.c		\
+		ft_flags.c		\
+		ft_verifiers.c		\
 
 BONUSSRCS = 
 

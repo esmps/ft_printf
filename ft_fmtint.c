@@ -6,7 +6,7 @@
 /*   By: epines-s <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/03 18:11:03 by epines-s          #+#    #+#             */
-/*   Updated: 2020/06/03 20:17:43 by epines-s         ###   ########.fr       */
+/*   Updated: 2020/06/03 22:14:12 by epines-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -129,7 +129,6 @@ static char	*ft_intposassign(char *string, int64_t strlen, char *print, t_fmt fo
 	int64_t	i;
 
 	i = 0;
-
 	if (format.flags.width > format.flags.precision && format.flags.precision > strlen)
 	{
 		if (format.flags.leftal == 0)

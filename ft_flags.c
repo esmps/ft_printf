@@ -1,0 +1,73 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_flags.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: epines-s <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/06/03 23:36:55 by epines-s          #+#    #+#             */
+/*   Updated: 2020/06/03 23:40:51 by epines-s         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "libftprintf.h"
+#include "libft/libft.h"
+
+t_flags	*initflags(t_flags *subspec)
+{
+	subspec->zero = 0;
+	subspec->leftal = 0;
+	subspec->precision = 0;
+	subspec->width = 0;
+	return (subspec);
+}
+
+t_flags	*assignflags(const char *fmt, int64_t arg, t_flags *subspec)
+{
+	int64_t	res;
+	int64_t	 x;
+	int64_t	i;
+	char	*str;
+
+	x = 0;
+	i = 0;
+	res = 0;
+	if (*fmt == '0')
+		subspec->zero = 1;
+	else if (*fmt == '-')
+		subspec->leftal = 1;
+	else if (*fmt == '*')
+		subspec->width = arg;
+	else if (*fmt >= '1' && *fmt <= '9')
+	{
+		str = (char *)malloc(sizeof(char) * (strlenint(fmt) + 1));
+		while (*fmt >= '0' && *fmt <= '9')
+		{
+			str[i] = *fmt;
+			fmt++;
+			i++;
+		}
+		res = ft_atoi(str);
+		subspec->width = res;
+	}
+	else if (*fmt == '.')
+	{
+		fmt++;
+		if (*fmt == '*')
+			subspec->precision = arg;
+		if (*fmt >= '1' && *fmt <= '9')
+		{
+			str = (char *)malloc(sizeof(char) * (strlenint(fmt) + 1));
+			ft_memset(str, '\0', strlenint(fmt) + 1);
+			while (*fmt >= '0' && *fmt <= '9')
+			{
+				str[i] = *fmt;
+				fmt++;
+				i++;
+			}
+			 res = ft_atoi(str);
+			subspec->precision = res;
+		}
+	}
+	return (subspec);
+}
