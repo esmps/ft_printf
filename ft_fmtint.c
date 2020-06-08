@@ -6,7 +6,7 @@
 /*   By: epines-s <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/03 18:11:03 by epines-s          #+#    #+#             */
-/*   Updated: 2020/06/03 22:14:12 by epines-s         ###   ########.fr       */
+/*   Updated: 2020/06/07 01:39:15 by epines-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,19 +20,19 @@ static char	*ft_intnegalloc(int64_t strlen,  t_fmt format)
 	if ((format.flags.precision > format.flags.width && format.flags.width > strlen)\
 	 || (format.flags.precision > strlen && strlen > format.flags.width))
 	{
-		print = (char *)malloc(sizeof(char) * format.flags.precision + 2);
-		print[format.flags.precision + 1] = '\0';
+		print = ft_strnew((int)format.flags.precision + 1);
+		ft_memset(print, ' ', format.flags.precision + 1);
 	}
 	else if ((format.flags.width > format.flags.precision && format.flags.precision > strlen) \
 	|| (format.flags.width > strlen && strlen > format.flags.precision))
 	{
-		print = (char *)malloc(sizeof(char) * format.flags.width + 1);
-		print[format.flags.width] = '\0';
+		print = ft_strnew((int)format.flags.width);
+		ft_memset(print, ' ',format.flags.width);
 	}
 	else
 	{
-		print = (char *)malloc(sizeof(char) * strlen + 2);
-		print[strlen + 1] = '\0';
+		print = ft_strnew((int)strlen + 1);
+		ft_memset(print, ' ', strlen + 1);
 	}
 	return (print);
 }
@@ -43,18 +43,18 @@ static char	*ft_intposalloc(int64_t strlen, t_fmt format)
 
 	if ((format.flags.precision > format.flags.width && format.flags.width > strlen) || (format.flags.precision > strlen && strlen > format.flags.width))
 	{
-		print = (char *)malloc(sizeof(char) * format.flags.precision + 1);
-		print[format.flags.precision] = '\0';
+		print = ft_strnew((int)format.flags.precision);
+		ft_memset(print, ' ', format.flags.precision);
 	}
 	else if ((format.flags.width > format.flags.precision && format.flags.precision > strlen) || (format.flags.width > strlen && strlen > format.flags.precision))
 	{
-		print = (char *)malloc(sizeof(char) * format.flags.width + 1);
-		print[format.flags.width] = '\0';
+		print = ft_strnew((int)format.flags.width);
+		ft_memset(print, ' ', format.flags.width);
 	}
 	else
 	{
-		print = (char *)malloc(sizeof(char) * strlen + 1);
-		print[strlen] = '\0';
+		print = ft_strnew(strlen);
+		ft_memset(print, ' ', strlen);
 	}
 	return (print);
 }
@@ -155,8 +155,16 @@ static char	*ft_intposassign(char *string, int64_t strlen, char *print, t_fmt fo
 	}
 	else if (format.flags.width > strlen && strlen > format.flags.precision)
 	{
-		while (j < format.flags.width)
-			print[j++] = string[i++];
+		if (format.flags.leftal == 1)
+		{
+			while (j < strlen)
+				print[j++] = string[i++];
+		}
+		else
+		{
+			while (j < format.flags.width)
+				print[j++] = string[i++];
+		}
 	}
 	else
 	{
@@ -176,7 +184,6 @@ char	*ft_fmtint(char *string, t_fmt format)
 	{
 		strlen = (int64_t)ft_strlen(string) - 1;
 		print = ft_intnegalloc(strlen, format);
-		ft_memset(print, ' ', (int64_t)ft_strlen(print));
 		j = ft_intnegleftal(string, strlen, format);
 		ft_intnegassign(string, strlen, print, format, j);
 	}
@@ -184,7 +191,6 @@ char	*ft_fmtint(char *string, t_fmt format)
 	{
 		strlen = (int64_t)ft_strlen(string);
 		print = ft_intposalloc(strlen, format);
-		ft_memset(print, ' ', (int64_t)ft_strlen(print));
 		j = ft_intposleftal(strlen, format);
 		ft_intposassign(string, strlen, print, format, j);
 	}

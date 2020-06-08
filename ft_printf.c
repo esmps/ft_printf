@@ -6,7 +6,7 @@
 /*   By: epines-s <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/22 13:49:55 by epines-s          #+#    #+#             */
-/*   Updated: 2020/06/04 00:18:14 by epines-s         ###   ########.fr       */
+/*   Updated: 2020/06/07 01:35:21 by epines-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,11 +32,9 @@ int	ft_printf(const char *fmt, ...)
 
 	i = 0;
 	last_pos = -1;
-	initflags(&(format.flags));
 	//USE AP TO USE VA ARG IN ANOTHER FUNCTION WHAT A REVELATION!!!!
 	va_start(ap, fmt);
-	print = (char *)malloc(sizeof(char));
-	ft_bzero(print, sizeof(print));
+	print = ft_strnew(0);
 	while (fmt && fmt[i])
 	{	
 		if (fmt[i] == '%' || fmt[i + 1] == '\0')
@@ -53,6 +51,7 @@ int	ft_printf(const char *fmt, ...)
 			}
 			else if (fmt[i] == '%')
 			{
+				initflags(&(format.flags));
 				if (isspec(fmt[i + 1]) == 1 || isflag(fmt[i + 1]) == 1 || (fmt[i + 1] >= '1' && fmt[i + 1] <= '9'))
 				{
 					temp = ft_substr(fmt, last_pos + 1, i - last_pos - 1);

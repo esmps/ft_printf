@@ -6,11 +6,12 @@
 /*   By: epines-s <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/18 16:02:45 by epines-s          #+#    #+#             */
-/*   Updated: 2020/06/03 14:48:45 by epines-s         ###   ########.fr       */
+/*   Updated: 2020/06/06 23:45:22 by epines-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
+#include "../libftprintf.h"
 
 static size_t	int_len(int num)
 {
@@ -47,7 +48,7 @@ char			*ft_itoa(int n)
 	char	*res;
 
 	len = int_len(n);
-	s = (char *)malloc(sizeof(char) * (len + 1));
+	s = ft_strnew(int_len(n));
 	res = s;
 	if (!s)
 		return (NULL);

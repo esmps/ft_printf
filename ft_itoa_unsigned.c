@@ -6,7 +6,7 @@
 /*   By: epines-s <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/29 21:12:45 by epines-s          #+#    #+#             */
-/*   Updated: 2020/05/30 18:17:31 by epines-s         ###   ########.fr       */
+/*   Updated: 2020/06/06 23:27:10 by epines-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ char			*ft_itoa_unsigned(uint64_t n)
 	char	*res;
 
 	len = int_len(n);
-	s = (char *)malloc(sizeof(char) * (len + 1));
+	s = ft_strnew(int_len(n));
 	res = s;
 	if (!s)
 		return (NULL);

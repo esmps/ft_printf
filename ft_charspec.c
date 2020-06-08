@@ -6,7 +6,7 @@
 /*   By: epines-s <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/03 23:33:11 by epines-s          #+#    #+#             */
-/*   Updated: 2020/06/03 23:35:03 by epines-s         ###   ########.fr       */
+/*   Updated: 2020/06/07 01:23:52 by epines-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ char	*ft_argp(int64_t pointer, t_fmt format)
 	i = 0;
 	print = ft_strdup("0x");
 	print = ft_strjoin(print, ft_itoa_hex(pointer, 0));
-	print = ft_fmtstr(print, format);
+	print = ft_fmtint(print, format);
 	return (print);
 }
 
@@ -51,9 +51,9 @@ char	*ft_argpercent(t_fmt format)
 {
 	char	*print;
 
-	print = (char *)malloc(sizeof(char) * 2);
-	print = "%";
-	print = ft_fmtstr(print, format);
+	print = ft_strnew(1);
+	print[0] = '%';
+	print = ft_fmtint(print, format);
 	return (print);
 }
 

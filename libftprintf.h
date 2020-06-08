@@ -6,7 +6,7 @@
 /*   By: epines-s <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/22 13:48:39 by epines-s          #+#    #+#             */
-/*   Updated: 2020/06/03 23:46:10 by epines-s         ###   ########.fr       */
+/*   Updated: 2020/06/06 23:24:23 by epines-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,7 @@ char	*ft_argp(int64_t pointer, t_fmt format);
 char	*ft_args(char *string, t_fmt format);
 char	*ft_argc(int64_t character, t_fmt format);
 char	*ft_argpercent(t_fmt format);
+char	*ft_strnew(size_t len);
 
 int	isflag(char c);
 int	isspec(char c);
