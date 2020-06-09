@@ -18,7 +18,7 @@ int64_t	strlenint(const char *fmt)
 	int64_t	i;
 
 	i = 0;
-	if (*fmt >= '1' && *fmt <= '9')
+	if (*fmt >= '0' && *fmt <= '9')
 	{
 		while (*fmt >= '0' && *fmt <= '9')
 		{
