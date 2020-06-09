@@ -55,7 +55,7 @@ t_flags	*assignflags(const char *fmt, int64_t arg, t_flags *subspec)
 		fmt++;
 		if (*fmt == '*')
 			subspec->precision = (int64_t)ft_abs(arg);
-		else if (*fmt >= '1' && *fmt <= '9')
+		else if (*fmt >= '0' && *fmt <= '9')
 		{
 			str = ft_strnew(strlenint(fmt));
 			while (*fmt >= '0' && *fmt <= '9')
