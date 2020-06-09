@@ -10,8 +10,8 @@ SRCS =		ft_printf.c		\
 		ft_itoa_unsigned.c 	\
 		ft_stringformat.c		\
 		ft_fmtint.c		\
-		ft_intspec.c		\
-		ft_charspec.c		\
+		ft_spec_char.c		\
+		ft_spec_int.c		\
 		ft_flags.c		\
 		ft_verifiers.c		\
 		ft_strnew.c		\
