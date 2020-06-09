@@ -3,7 +3,7 @@ LIBFT = libft/libft.a
 
 HEADER = libftprintf.h
 
-FLAGS = -Wall -Wextra -Werror 
+FLAGS = -Wall -Wextra -Werror -g
 
 SRCS =		ft_printf.c		\
 		ft_itoa_hex.c		\
@@ -15,6 +15,7 @@ SRCS =		ft_printf.c		\
 		ft_flags.c		\
 		ft_verifiers.c		\
 		ft_strnew.c		\
+		ft_intassign.c		\
 
 BONUSSRCS = 
 
@@ -33,7 +34,7 @@ $(NAME): $(LIBFT)
 		ar rc $(NAME) $(OBJS) 
 		ranlib $(NAME)
 test: $(NAME)
-		gcc -o test $(NAME) maintest.c
+		gcc -o test -g $(NAME) maintest.c
 
 clean:
 		/bin/rm -f $(OBJS)

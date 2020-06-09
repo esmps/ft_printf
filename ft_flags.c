@@ -6,7 +6,7 @@
 /*   By: epines-s <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/03 23:36:55 by epines-s          #+#    #+#             */
-/*   Updated: 2020/06/03 23:40:51 by epines-s         ###   ########.fr       */
+/*   Updated: 2020/06/07 22:04:48 by epines-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ t_flags	*initflags(t_flags *subspec)
 {
 	subspec->zero = 0;
 	subspec->leftal = 0;
-	subspec->precision = 0;
+	subspec->precision = -1;
 	subspec->width = 0;
 	return (subspec);
 }
@@ -37,7 +37,7 @@ t_flags	*assignflags(const char *fmt, int64_t arg, t_flags *subspec)
 	else if (*fmt == '-')
 		subspec->leftal = 1;
 	else if (*fmt == '*')
-		subspec->width = arg;
+		subspec->width = (int64_t)ft_abs(arg);
 	else if (*fmt >= '1' && *fmt <= '9')
 	{
 		str = (char *)malloc(sizeof(char) * (strlenint(fmt) + 1));
@@ -54,8 +54,8 @@ t_flags	*assignflags(const char *fmt, int64_t arg, t_flags *subspec)
 	{
 		fmt++;
 		if (*fmt == '*')
-			subspec->precision = arg;
-		if (*fmt >= '1' && *fmt <= '9')
+			subspec->precision = (int64_t)ft_abs(arg);
+		else if (*fmt >= '1' && *fmt <= '9')
 		{
 			str = (char *)malloc(sizeof(char) * (strlenint(fmt) + 1));
 			ft_memset(str, '\0', strlenint(fmt) + 1);
@@ -68,6 +68,8 @@ t_flags	*assignflags(const char *fmt, int64_t arg, t_flags *subspec)
 			 res = ft_atoi(str);
 			subspec->precision = res;
 		}
+		else
+			subspec->precision = 0;
 	}
 	return (subspec);
 }

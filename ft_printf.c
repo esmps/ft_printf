@@ -49,6 +49,7 @@ int	ft_printf(const char *fmt, ...)
 				print = temp;
 				i++;
 			}
+			//put this into a whole new function && make it smaller
 			else if (fmt[i] == '%')
 			{
 				initflags(&(format.flags));
@@ -59,16 +60,17 @@ int	ft_printf(const char *fmt, ...)
 					free (print);
 					print = temp;
 					i++;
-					
 					while (isflag(fmt[i]) || (fmt[i] >= '1' && fmt[i] <= '9'))
 					{
 						arg = 0;
 						if ((fmt[i] == '.' && fmt[i + 1] == '*') || (fmt[i] == '*'))
 							arg = va_arg(ap, int);
 						assignflags(&fmt[i], arg, &(format.flags));
-						if (fmt[i] == '.')
+						if (fmt[i] == '.' && !isspec(fmt[i + 1]))
 						{
 							i++;
+							while (fmt[i] == '0')
+								i++;
 							i = i + (strlenint(&fmt[i]));
 						}
 						else

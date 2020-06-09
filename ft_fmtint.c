@@ -6,13 +6,14 @@
 /*   By: epines-s <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/03 18:11:03 by epines-s          #+#    #+#             */
-/*   Updated: 2020/06/07 01:39:15 by epines-s         ###   ########.fr       */
+/*   Updated: 2020/06/07 23:14:46 by epines-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libftprintf.h"
 #include "libft/libft.h"
 
+// rename this to ft_n_intalloc
 static char	*ft_intnegalloc(int64_t strlen,  t_fmt format)
 {
 	char	*print;
@@ -36,7 +37,7 @@ static char	*ft_intnegalloc(int64_t strlen,  t_fmt format)
 	}
 	return (print);
 }
-
+//rename this to ft_p_intalloc
 static char	*ft_intposalloc(int64_t strlen, t_fmt format)
 {
 	char	*print;
@@ -58,118 +59,58 @@ static char	*ft_intposalloc(int64_t strlen, t_fmt format)
 	}
 	return (print);
 }
+static int64_t	ft_n_setj(int64_t strlen, t_fmt format)
+{
+	int64_t	j;
 
-static int64_t	ft_intnegleftal(char *string, int64_t strlen, t_fmt format)
+	j = 0;	
+	if (format.flags.leftal == 0 && format.flags.width > strlen)
+	{
+		if (format.flags.precision > strlen)
+			j = format.flags.width - format.flags.precision - 1;
+		else if (strlen > format.flags.precision && format.flags.zero == 0)
+			j = format.flags.width - strlen - 1;
+		else if (format.flags.width > format.flags.precision && strlen > format.flags.precision && format.flags.zero == 1 && format.flags.precision > 0)
+			j = format.flags.width - strlen - 1;
+	}
+	return (j);
+
+}
+static int64_t	ft_p_setj(int64_t strlen, t_fmt format)
 {
 	int64_t	j;
 
 	j = 0;
-	if (format.flags.leftal == 0 && format.flags.width > format.flags.precision && format.flags.precision > strlen)
-		j = format.flags.width - format.flags.precision;
-	else if (format.flags.leftal == 0 && format.flags.width > strlen && strlen > format.flags.precision)
-		j = format.flags.width - strlen;
-	else if (string[0] == '-')
-		j = 1;
-	return (j);
-
-}
-
-static int64_t	ft_intposleftal(int64_t strlen, t_fmt format)
-{
-	int64_t	j;
-
-	j = 0;
-	if (format.flags.leftal == 0 && format.flags.width > format.flags.precision && format.flags.precision > strlen) 
-		j = format.flags.width - format.flags.precision;
-	else if (format.flags.leftal == 0 && format.flags.width > strlen && strlen > format.flags.precision)
-		j = format.flags.width - strlen;
+	if (format.flags.leftal == 0 && format.flags.width > strlen)
+	{
+		if (format.flags.precision > strlen)
+			j = format.flags.width - format.flags.precision;	
+		else if (strlen > format.flags.precision && format.flags.zero == 0)
+			j = format.flags.width - strlen;
+		else if (format.flags.width > format.flags.precision && strlen > format.flags.precision && format.flags.zero == 1 && format.flags.precision > 0)
+			j = format.flags.width - strlen;
+	}
 	return (j);
 }
 
-static char	*ft_intnegassign(char *string, int64_t strlen, char *print, t_fmt format, int64_t j)
-{
-	int64_t	i;
-	
-	i = 1;
-	if (format.flags.width > format.flags.precision && format.flags.precision > strlen)
-		print[format.flags.width - format.flags.precision - 1] = '-';
-	else if (format.flags.width > strlen && strlen > format.flags.precision)
-		print[format.flags.width - strlen - 1] = '-';
-	else 
-		print[0] = '-';
-	if (format.flags.width > format.flags.precision && format.flags.precision > strlen)
-	{	
-		while (j < format.flags.width - strlen)
-			print[j++] = '0';	
-		while (j < format.flags.width + 1)
-			print[j++] = string[i++];	
-	}
-	else if (format.flags.precision > strlen && format.flags.precision > format.flags.width)
-	{
-		while (j < format.flags.precision - strlen + 1)
-			print[j++] = '0';
-		while (j < format.flags.precision + 1)
-			print[j++] = string[i++];
-	}
-	else if (format.flags.width > strlen && strlen > format.flags.precision)
-	{
-		while (j < format.flags.width + 1)
-			print[j++] = string[i++];
-	}
-	else
-	{
-		while (j < strlen + 1)
-			print[j++] = string[i++];
-	}
-	return (print);
-}
-
-static char	*ft_intposassign(char *string, int64_t strlen, char *print, t_fmt format, int64_t j)
+static char	*ft_intassign(char *string, int64_t strlen, char *print, t_fmt format, int64_t j)
 {
 	int64_t	i;
 
 	i = 0;
-	if (format.flags.width > format.flags.precision && format.flags.precision > strlen)
-	{
-		if (format.flags.leftal == 0)
-		{
-			while (j < format.flags.width - strlen)
-				print[j++] = '0';
-			while (j < format.flags.width)
-				print[j++] = string[i++];
-		}
-		else
-		{
-			while (j < format.flags.precision - strlen && format.flags.leftal == 1)
-				print[j++] = '0';
-			while (j < format.flags.precision)
-				print[j++] = string[i++];
-		}
-	}
-	else if (format.flags.precision > strlen && format.flags.precision > format.flags.width)
-	{
-		while (j < format.flags.precision - strlen)
-			print[j++] = '0';
-		while (j < format.flags.precision)
-			print[j++] = string[i++];
-	}
-	else if (format.flags.width > strlen && strlen > format.flags.precision)
+	if (string[0] == '-')
 	{
 		if (format.flags.leftal == 1)
-		{
-			while (j < strlen)
-				print[j++] = string[i++];
-		}
+			ft_n_leftal(string, strlen, print, format, j);
 		else
-		{
-			while (j < format.flags.width)
-				print[j++] = string[i++];
-		}
+			ft_n_rightal(string, strlen, print, format, j);
 	}
-	else
+	else 
 	{
-		while (j < strlen)
-			print[j++] = string[i++];
+		if (format.flags.leftal == 1)
+			ft_p_leftal(string, strlen, print, format, j);
+		else 
+			ft_p_rightal(string, strlen, print, format, j);
 	}
 	return (print);
 }
@@ -184,15 +125,15 @@ char	*ft_fmtint(char *string, t_fmt format)
 	{
 		strlen = (int64_t)ft_strlen(string) - 1;
 		print = ft_intnegalloc(strlen, format);
-		j = ft_intnegleftal(string, strlen, format);
-		ft_intnegassign(string, strlen, print, format, j);
+		j = ft_n_setj(strlen, format);
+		ft_intassign(string, strlen, print, format, j);
 	}
 	else
 	{
 		strlen = (int64_t)ft_strlen(string);
 		print = ft_intposalloc(strlen, format);
-		j = ft_intposleftal(strlen, format);
-		ft_intposassign(string, strlen, print, format, j);
+		j = ft_p_setj(strlen, format);
+		ft_intassign(string, strlen, print, format, j);
 	}
 	return (print);
 }
