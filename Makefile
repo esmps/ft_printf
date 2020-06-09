@@ -8,7 +8,7 @@ FLAGS = -Wall -Wextra -Werror -g
 SRCS =		ft_printf.c		\
 		ft_itoa_hex.c		\
 		ft_itoa_unsigned.c 	\
-		ft_fmtstr.c		\
+		ft_stringformat.c		\
 		ft_fmtint.c		\
 		ft_intspec.c		\
 		ft_charspec.c		\
@@ -34,7 +34,7 @@ $(NAME): $(LIBFT)
 		ar rc $(NAME) $(OBJS) 
 		ranlib $(NAME)
 test: $(NAME)
-		gcc -o test -g $(NAME) maintest.c
+		gcc -o test -fsanitize=address -g $(NAME) maintest.c
 
 clean:
 		/bin/rm -f $(OBJS)

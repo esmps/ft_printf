@@ -66,15 +66,9 @@ int	ft_printf(const char *fmt, ...)
 						if ((fmt[i] == '.' && fmt[i + 1] == '*') || (fmt[i] == '*'))
 							arg = va_arg(ap, int);
 						assignflags(&fmt[i], arg, &(format.flags));
-						if (fmt[i] == '.' && !isspec(fmt[i + 1]))
-						{
+						i++;
+						while (fmt[i] >= '0' && fmt[i] <= '9' && fmt[i - 1] == '.')
 							i++;
-							while (fmt[i] == '0')
-								i++;
-							i = i + (strlenint(&fmt[i]));
-						}
-						else
-							i = i + (strlenint(&fmt[i]));
 					}
 
 

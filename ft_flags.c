@@ -40,7 +40,7 @@ t_flags	*assignflags(const char *fmt, int64_t arg, t_flags *subspec)
 		subspec->width = (int64_t)ft_abs(arg);
 	else if (*fmt >= '1' && *fmt <= '9')
 	{
-		str = (char *)malloc(sizeof(char) * (strlenint(fmt) + 1));
+		str = ft_strnew(strlenint(fmt));
 		while (*fmt >= '0' && *fmt <= '9')
 		{
 			str[i] = *fmt;
@@ -57,8 +57,7 @@ t_flags	*assignflags(const char *fmt, int64_t arg, t_flags *subspec)
 			subspec->precision = (int64_t)ft_abs(arg);
 		else if (*fmt >= '1' && *fmt <= '9')
 		{
-			str = (char *)malloc(sizeof(char) * (strlenint(fmt) + 1));
-			ft_memset(str, '\0', strlenint(fmt) + 1);
+			str = ft_strnew(strlenint(fmt));
 			while (*fmt >= '0' && *fmt <= '9')
 			{
 				str[i] = *fmt;
