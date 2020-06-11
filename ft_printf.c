@@ -71,6 +71,8 @@ int	ft_printf(const char *fmt, ...)
 							i++;
 							i = i + (strlenint(&fmt[i]));
 						}
+						else if (fmt[i] == '0')
+							i++;
 						else
 							i = i + (strlenint(&fmt[i]));;
 					}
