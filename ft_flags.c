@@ -37,7 +37,12 @@ t_flags	*assignflags(const char *fmt, int64_t arg, t_flags *subspec)
 	else if (*fmt == '-')
 		subspec->leftal = 1;
 	else if (*fmt == '*')
-		subspec->width = (int64_t)ft_abs(arg);
+	{
+		if (arg >= 0)
+			subspec->width = arg;
+		else
+			subspec->width = 0;
+	}
 	else if (*fmt >= '1' && *fmt <= '9')
 	{
 		str = ft_strnew(strlenint(fmt));
@@ -54,7 +59,12 @@ t_flags	*assignflags(const char *fmt, int64_t arg, t_flags *subspec)
 	{
 		fmt++;
 		if (*fmt == '*')
-			subspec->precision = (int64_t)ft_abs(arg);
+		{
+			if (arg >= 0)
+				subspec->precision = arg;
+			else
+				subspec->precision = -1;
+		}
 		else if (*fmt >= '0' && *fmt <= '9')
 		{
 			str = ft_strnew(strlenint(fmt));
