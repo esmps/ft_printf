@@ -8,14 +8,13 @@ FLAGS = -Wall -Wextra -Werror -g
 SRCS =		ft_printf.c		\
 		ft_itoa_hex.c		\
 		ft_itoa_unsigned.c 	\
-		ft_stringformat.c		\
-		ft_fmtint.c		\
+		ft_stringformat.c	\
+		ft_intformat.c		\
 		ft_spec_char.c		\
 		ft_spec_int.c		\
-		ft_flags.c		\
+		ft_flags.c			\
 		ft_verifiers.c		\
-		ft_strnew.c		\
-		ft_intassign.c		\
+		ft_strnew.c			\
 
 BONUSSRCS = 
 
