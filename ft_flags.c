@@ -38,10 +38,9 @@ t_flags	*assignflags(const char *fmt, int64_t arg, t_flags *subspec)
 		subspec->leftal = 1;
 	else if (*fmt == '*')
 	{
-		if (arg >= 0)
-			subspec->width = arg;
-		else
-			subspec->width = 0;
+		if (arg < 0)
+			subspec->leftal = 1;
+		subspec->width = (int64_t)ft_abs(arg);
 	}
 	else if (*fmt >= '1' && *fmt <= '9')
 	{

@@ -50,7 +50,7 @@ char	*ft_argxcap(int64_t hexcap, t_fmt format)
 	return (print);
 }
 
-char	*intspecifiers(char c, int64_t integer, t_fmt format)
+char	*intspecifiers(char c, int64_t integer, t_fmt format, int64_t *printlen)
 {
 	char	*print;
 
@@ -68,5 +68,9 @@ char	*intspecifiers(char c, int64_t integer, t_fmt format)
 		print = ft_argx(integer, format);
 	if (c == 'X')
 		print = ft_argxcap(integer, format);
+	if (c == 'c' || c == '%')
+		*printlen += format.flags.width > 1 ? format.flags.width : 1;	
+	else
+		*printlen += (int64_t)ft_strlen(print);
 	return (print);
 }

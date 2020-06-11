@@ -24,7 +24,7 @@ static int64_t	fmtstrlen(char *string, t_fmt format)
 		str = ft_strlen(string);
 	if (str < format.flags.precision && format.flags.precision > -1)
 		strlen = format.flags.precision;
-	else if (string[0] == '0' && string[1] == '\0' && format.flags.precision == 0)
+	else if ((string[0] == '0' && string[1] == '\0' && format.flags.precision == 0) || string[0] == '\0')
 		strlen = 0;
 	else
 		strlen = str;
@@ -46,7 +46,7 @@ static int64_t setstart(char *string, int64_t strlen, t_fmt format)
 	}
 	else
 	{
-		if (format.flags.width > strlen && format.flags.leftal == 0)
+		if (format.flags.width > strlen && format.flags.leftal == 0 && strlen > 0)
 			start = format.flags.width - strlen;
 		else
 			start = 0;

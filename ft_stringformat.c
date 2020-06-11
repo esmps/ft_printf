@@ -73,7 +73,9 @@ char	*ft_fmtstr(char *string, t_fmt format)
 	int64_t	strlen;
 	int64_t	start;
 	char 	*print;
-	
+
+	if (string == NULL)
+		string = ft_strdup("(null)");
 	strlen = fmtstrlen(string, format);
 	start = setstart(strlen, format);
 	print = allocstring(strlen, format);
