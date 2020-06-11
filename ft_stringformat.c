@@ -13,20 +13,20 @@
 #include "libftprintf.h"
 #include "libft/libft.h"
 
-
-
-static char	*allocatestring(int64_t strlen, t_fmt format)
+static int64_t	fmtstrlen(char *string, t_fmt format)
 {
-	int64_t	len;
-	char	*print;
+	int64_t	str;
+	int64_t	strlen;
 
-	len = format.flags.width >= strlen ? format.flags.width : strlen;
-	print = ft_strnew(len);
-	ft_memset(print, ' ', len);
-	return (print);
+	str = ft_strlen(string);
+	if (str > format.flags.precision && format.flags.precision > -1)
+		strlen = format.flags.precision;
+	else
+		strlen = str;
+	return (strlen);
 }
 
-static int64_t	set_strstart(int64_t strlen, t_fmt format)
+static int64_t	setstart(int64_t strlen, t_fmt format)
 {
 	int64_t	start;
 	
@@ -35,6 +35,17 @@ static int64_t	set_strstart(int64_t strlen, t_fmt format)
 	else
 		start = 0;
 	return (start);
+}
+
+static char	*allocstring(int64_t strlen, t_fmt format)
+{
+	int64_t	len;
+	char	*print;
+
+	len = format.flags.width >= strlen ? format.flags.width : strlen;
+	print = ft_strnew(len);
+	ft_memset(print, ' ', len);
+	return (print);
 }
 
 static char	*assignstr(char *print, char *string, int64_t strlen, int64_t start, t_fmt format)
@@ -49,24 +60,12 @@ static char	*assignstr(char *print, char *string, int64_t strlen, int64_t start,
 	}
 	else
 	{
+			// add zero flag here? undefined behav. but if i feel like it sure.
 		while (start < (int64_t)ft_strlen(print))
 			print[start++] = string[i++];
 	}
 	return (print);	
 
-}
-
-static int64_t	fmtstrlen(char *string, t_fmt format)
-{
-	int64_t	str;
-	int64_t	strlen;
-
-	str = ft_strlen(string);
-	if (str > format.flags.precision && format.flags.precision > -1)
-		strlen = format.flags.precision;
-	else
-		strlen = str;
-	return (strlen);
 }
 
 char	*ft_fmtstr(char *string, t_fmt format)
@@ -76,8 +75,8 @@ char	*ft_fmtstr(char *string, t_fmt format)
 	char 	*print;
 	
 	strlen = fmtstrlen(string, format);
-	print = allocatestring(strlen, format);
-	start = set_strstart(strlen, format);
+	start = setstart(strlen, format);
+	print = allocstring(strlen, format);
 	assignstr(print, string, strlen, start, format);
 	return (print);
 }
