@@ -1,5 +1,4 @@
-#include "libftprintf.h"
-#include "libft/libft.h"
+#include "libft.h"
 
 static size_t	int_len(int64_t num)
 {

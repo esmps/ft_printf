@@ -10,8 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft/libft.h"
-#include "libftprintf.h"
+#include "libft.h"
 
 static size_t	int_len(uint64_t num)
 {

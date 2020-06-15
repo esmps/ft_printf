@@ -100,18 +100,14 @@ static char	*assignint(char *string, char *print, t_fmt format, int64_t start)
 	else if (format.flags.leftal == 0 && format.flags.zero == 1 && format.flags.width > str && format.flags.precision == -1)
 	{
 		if (string[0] == '-')
-		{
 			while (j++ < format.flags.width - str - 1)
 				start++;
-		}
 		while (j++ < format.flags.width)
 			print[start++] = string[i++];
 	}
 	else
-	{
 		while (j++ < str)
 			print[start++] = string[i++];
-	}
 	return (print);
 }
 
