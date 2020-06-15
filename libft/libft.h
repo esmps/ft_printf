@@ -57,6 +57,9 @@ char				*ft_substr(char const *s, unsigned int start, size_t len);
 char				*ft_strjoin(char const *s1, char const *s2);
 char				*ft_strtrim(char const *s1, char const *set);
 char				**ft_split(char const *s, char c);
+char				*ft_itoa_hex(long long int num, int letter);
+char				*ft_itoa_unsigned(uint64_t n);
+char				*ft_strnew(size_t len)
 
 size_t				ft_strlcat(char *dst, const char *src, size_t dstsize);
 size_t				ft_strlcpy(char *dst, const char *src, size_t dstsize);
@@ -73,16 +76,15 @@ t_list				*ft_lstmap(t_list *lst, \
 t_list				*ft_lstnew(void *content);
 int					ft_lstsize(t_list *lst);
 
-
-int				ft_islower(int c);
-int				ft_isupper(int c);
-int				ft_isspace(char c);
-int				ft_pow(int n, int p);
-int				ft_abs(int64_t n);
-int				ft_putchar(int c);
+int					ft_islower(int c);
+int					ft_isupper(int c);
+int					ft_isspace(char c);
+int					ft_pow(int n, int p);
+int					ft_abs(int64_t n);
+int					ft_putchar(int c);
 void				ft_putstr(char const *s);
 void				ft_putendl(char const *s);
-int				ft_putnbr(int n);
+int					ft_putnbr(int n);
 char				*ft_strstr(const char *haystack, const char *needle);
 char				*ft_strcpy(char *dst, const char *src);
 char				*ft_strcat(char *dst, const char *src);
