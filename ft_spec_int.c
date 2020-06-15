@@ -49,28 +49,3 @@ char	*ft_argxcap(int64_t hexcap, t_fmt format)
 	print = ft_fmtint(print, format);
 	return (print);
 }
-
-char	*intspecifiers(char c, int64_t integer, t_fmt format, int64_t *printlen)
-{
-	char	*print;
-
-	if (c == 'c')
-		print = ft_argc(integer, format);
-	if (c == '%')
-		print = ft_argpercent(format);
-	if (c == 'd' || c == 'i')
-		print = ft_argdi(integer, format);
-	if (c == 'u')
-		print = ft_argu((uint64_t)integer, format);
-	if (c == 'p')
-		print = ft_argp(integer, format);
-	if (c == 'x')
-		print = ft_argx(integer, format);
-	if (c == 'X')
-		print = ft_argxcap(integer, format);
-	if (c == 'c' || c == '%')
-		*printlen += format.flags.width > 1 ? format.flags.width : 1;	
-	else
-		*printlen += (int64_t)ft_strlen(print);
-	return (print);
-}

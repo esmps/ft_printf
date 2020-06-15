@@ -81,3 +81,27 @@ t_flags	*assignflags(const char *fmt, int64_t arg, t_flags *subspec)
 	}
 	return (subspec);
 }
+
+int	set_flag(va_list ap, const char *fmt, t_fmt *format)
+{
+	int		arg;
+	int		i;
+
+	i = 0;
+	arg = 0;
+	if ((fmt[i] == '.' && fmt[i + 1] == '*') || (fmt[i] == '*'))
+		arg = va_arg(ap, int);
+	assignflags(&fmt[i], arg, &(format->flags));
+	if (fmt[i] == '.' && fmt[i + 1] >= '0' && fmt[i + 1] <= '9')
+	{
+		i++;
+		i = i + (strlenint(&fmt[i]));
+	}
+	else if (fmt[i] == '.' && fmt[i + 1] == '*')
+		i += 2;
+	else if (fmt[i] == '0')
+		i++;
+	else
+		i = i + (strlenint(&fmt[i]));
+	return (i);
+}

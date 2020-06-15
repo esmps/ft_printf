@@ -50,12 +50,3 @@ char	*ft_argpercent(t_fmt format)
 	print = ft_fmtchar('%', format);
 	return (print);
 }
-
-char	*charspecifiers(char *string, t_fmt format, int64_t *printlen)
-{
-	char	*print;
-
-	print = ft_args(string, format);
-	*printlen += ft_strlen(print);
-	return (print);
-}

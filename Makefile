@@ -18,6 +18,7 @@ SRCS =		ft_printf.c		\
 		ft_strnew.c			\
 		ft_printstring.c	\
 		ft_fmtptr.c			\
+		ft_specifiers.c		\
 
 BONUSSRCS = 
 
