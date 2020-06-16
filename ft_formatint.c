@@ -97,7 +97,7 @@ static char	*assignint(char *string, char *print, t_fmt format, int64_t start)
 		while (j++ <= format.flags.precision)
 			print[start++] = string[i++];
 	}
-	else if (format.flags.leftal == 0 && format.flags.zero == 1 && format.flags.width >     str && format.flags.precision == -1)
+	else if (format.flags.leftal == 0 && format.flags.zero == 1 && format.flags.width > str && format.flags.precision == -1)
 	{
 		if (string[0] == '-')
 			while (j++ < format.flags.width - str - 1)

@@ -44,7 +44,7 @@ static char	*allocptr(int64_t strlen, t_fmt format)
 
 	len = format.flags.width >= strlen ? format.flags.width : strlen;
 	print = ft_strnew(len);
-	if (strlen > format.flags.width)
+	if (strlen > format.flags.width) // || format.flags.zero == 1 ?
 		ft_memset(print, '0', len);
 	else
 		ft_memset(print, ' ', len);

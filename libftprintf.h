@@ -32,15 +32,21 @@ typedef struct fmt
 	struct flags	flags;
 }			t_fmt;
 
+typedef struct print
+{
+	int64_t	len;
+	int64_t	templen;
+	int64_t last_pos;
+}			t_print;
 
 int		ft_printf(const char *fmt, ...);
 char	*ft_fmtstr(char *string, t_fmt format);
 char	*ft_fmtint(char *string, t_fmt format);
 char	*ft_fmtchar(char character, t_fmt format);
-char	*intspecifiers(char c, int64_t integer, t_fmt format, int64_t *printlen);
-char	*charspecifiers(char *string, t_fmt format, int64_t *printlen);
-char	*readspec(const char fmt, va_list ap, t_fmt format, int64_t *printlen);
-char	*ft_printstring(char *print, char *spec, int64_t printlen, int j);
+char	*intspecifiers(char c, int64_t integer, t_fmt format, t_print *printint);
+char	*charspecifiers(char *string, t_fmt format, t_print *printint);
+char	*readspec(const char fmt, va_list ap, t_fmt format, t_print *printint);
+char	*ft_printstring(char *print, char *spec, t_print printint);
 char	*ft_fmtptr(char *string, t_fmt format);
 char	*ft_argdi(int64_t decimal, t_fmt format);
 char	*ft_argu(uint64_t unsignedint, t_fmt format);

@@ -13,7 +13,7 @@
 #include "libftprintf.h"
 #include "libft/libft.h"
 
-char	*ft_printstring(char *print, char *spec, int64_t printlen, int j)
+char	*ft_printstring(char *print, char *spec, t_print printint)
 {
 	char	*printstring;
 	int	x;
@@ -21,13 +21,13 @@ char	*ft_printstring(char *print, char *spec, int64_t printlen, int j)
 
 	x = 0;
 	y = 0;
-	printstring = ft_strnew((size_t)printlen);
-	while (x < j)
+	printstring = ft_strnew((size_t)printint.len);
+	while (x < printint.templen)
 	{
 		printstring[x] = print[x];
 		x++;
 	}
-	while (x < printlen)
+	while (x < printint.len)
 	{
 		printstring[x] = spec[y++];
 		x++;

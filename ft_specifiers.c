@@ -12,7 +12,7 @@
 
 #include "libftprintf.h"
 
-char	*intspecifiers(char c, int64_t integer, t_fmt format, int64_t *printlen)
+char	*intspecifiers(char c, int64_t integer, t_fmt format, t_print *printint)
 {
 	char	*print;
 
@@ -31,23 +31,23 @@ char	*intspecifiers(char c, int64_t integer, t_fmt format, int64_t *printlen)
 	if (c == 'X')
 		print = ft_argxcap(integer, format);
 	if (c == 'c' || c == '%')
-		*printlen += format.flags.width > 1 ? format.flags.width : 1;	
+		printint->len += format.flags.width > 1 ? format.flags.width : 1;	
 	else
-		*printlen += (int64_t)ft_strlen(print);
+		printint->len += (int64_t)ft_strlen(print);
 	return (print);
 }
 
-char	*charspecifiers(char *string, t_fmt format, int64_t *printlen)
+char	*charspecifiers(char *string, t_fmt format, t_print *printint)
 {
 	char	*print;
 
 	print = ft_args(string, format);
-	*printlen += ft_strlen(print);
+	printint->len += ft_strlen(print);
 	return (print);
 }
 
 
-char	*readspec(const char fmt, va_list ap, t_fmt format, int64_t *printlen)
+char	*readspec(const char fmt, va_list ap, t_fmt format, t_print *printint)
 {
 	char	*temp;
 	char	*strarg;
@@ -56,7 +56,7 @@ char	*readspec(const char fmt, va_list ap, t_fmt format, int64_t *printlen)
 	if (fmt == 's')
 	{
 		strarg = va_arg(ap, void *);
-		temp = charspecifiers(strarg, format, printlen);
+		temp = charspecifiers(strarg, format, printint);
 	}
 	else
 	{
@@ -66,8 +66,7 @@ char	*readspec(const char fmt, va_list ap, t_fmt format, int64_t *printlen)
 			arg = va_arg(ap, uint64_t);
 		else
 			arg = va_arg(ap, int64_t);
-		temp = intspecifiers(fmt, arg, format, printlen);
+		temp = intspecifiers(fmt, arg, format, printint);
 	}
 	return (temp);
 }
-
