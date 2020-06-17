@@ -22,16 +22,42 @@ t_flags	*initflags(t_flags *subspec)
 	return (subspec);
 }
 
-t_flags	*assignflags(const char *fmt, int64_t arg, t_flags *subspec)
+static int64_t	int_to_string(const char *fmt)
 {
-	int64_t	res;
-	int64_t	 x;
-	int64_t	i;
+	int		i;
+	int64_t		res;
 	char	*str;
 
-	x = 0;
 	i = 0;
 	res = 0;
+	str = ft_strnew(strlenint(fmt));
+	while (*fmt >= '0' && *fmt <= '9')
+		str[i++] = *fmt++;
+	res = ft_atoi(str);
+	return (res);
+}
+
+static t_flags	*precision(const char *fmt, int64_t arg, t_flags *subspec)
+{
+	if (*fmt == '*')
+	{
+		if (arg >= 0)
+			subspec->precision = arg;
+		else
+			subspec->precision = -1;
+	}
+	else if (*fmt >= '0' && *fmt <= '9')
+		subspec->precision = int_to_string(fmt);
+	else
+		subspec->precision = 0;
+	return (subspec);
+}
+
+static t_flags	*assignflags(const char *fmt, int64_t arg, t_flags *subspec)
+{
+	int64_t	 x;
+
+	x = 0;	
 	if (*fmt == '0')
 		subspec->zero = 1;
 	else if (*fmt == '-')
@@ -43,41 +69,11 @@ t_flags	*assignflags(const char *fmt, int64_t arg, t_flags *subspec)
 		subspec->width = (int64_t)ft_abs(arg);
 	}
 	else if (*fmt >= '1' && *fmt <= '9')
-	{
-		str = ft_strnew(strlenint(fmt));
-		while (*fmt >= '0' && *fmt <= '9')
-		{
-			str[i] = *fmt;
-			fmt++;
-			i++;
-		}
-		res = ft_atoi(str);
-		subspec->width = res;
-	}
+		subspec->width = int_to_string(fmt);
 	else if (*fmt == '.')
 	{
 		fmt++;
-		if (*fmt == '*')
-		{
-			if (arg >= 0)
-				subspec->precision = arg;
-			else
-				subspec->precision = -1;
-		}
-		else if (*fmt >= '0' && *fmt <= '9')
-		{
-			str = ft_strnew(strlenint(fmt));
-			while (*fmt >= '0' && *fmt <= '9')
-			{
-				str[i] = *fmt;
-				fmt++;
-				i++;
-			}
-			 res = ft_atoi(str);
-			subspec->precision = res;
-		}
-		else
-			subspec->precision = 0;
+		precision(fmt, arg, subspec);
 	}
 	return (subspec);
 }

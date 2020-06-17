@@ -5,18 +5,17 @@ HEADER = libftprintf.h
 
 FLAGS = -Wall -Wextra -Werror -g
 
-SRCS =		ft_printf.c		\
+SRCS =	ft_printf.c			\
+		ft_process.c		\
+		ft_flags.c			\
 		ft_formatstr.c		\
 		ft_formatint.c		\
 		ft_formatchar.c		\
 		ft_formatptr.c		\
 		ft_spec_char.c		\
 		ft_spec_int.c		\
-		ft_flags.c			\
 		ft_verifiers.c		\
-		ft_printstring.c	\
 		ft_specifiers.c		\
-		ft_process.c		\
 
 BONUSSRCS = 
 

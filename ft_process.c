@@ -13,6 +13,28 @@
 #include "libftprintf.h"
 #include "libft/libft.h"
 
+static char	*ft_printstring(char *print, char *spec, t_print printint)
+{
+	char	*printstring;
+	int	x;
+	int	y;
+
+	x = 0;
+	y = 0;
+	printstring = ft_strnew((size_t)printint.len);
+	while (x < printint.templen)
+	{
+		printstring[x] = print[x];
+		x++;
+	}
+	while (x < printint.len)
+	{
+		printstring[x] = spec[y++];
+		x++;
+	}
+	return (printstring);
+}
+
 static char	*process_non_fmt(const char *fmt, int i, char *print, t_print *printint)
 {
 	char	*temp;

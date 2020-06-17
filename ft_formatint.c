@@ -50,7 +50,6 @@ static int64_t setstart(char *string, int64_t strlen, t_fmt format)
 			start = format.flags.width - strlen;
 		else
 			start = 0;
-		
 	}
 	return (start);
 }
@@ -75,11 +74,9 @@ static char	*allocint(char *string, int64_t strlen, t_fmt format)
 static char	*assignint(char *string, char *print, t_fmt format, int64_t start)
 {
 	int64_t i;
-	int64_t j;
 	int64_t str;
 
 	i = 0;
-	j = 0;
 	if (string[i] == '-')
 	{
 		str = (int64_t)ft_strlen(string) - 1;
@@ -90,24 +87,7 @@ static char	*assignint(char *string, char *print, t_fmt format, int64_t start)
 		str = 0;
 	else
 		str = (int64_t)ft_strlen(string);
-	if (format.flags.precision > str)
-	{
-		while (j++ < format.flags.precision - str)
-			print[start++] = '0';
-		while (j++ <= format.flags.precision)
-			print[start++] = string[i++];
-	}
-	else if (format.flags.leftal == 0 && format.flags.zero == 1 && format.flags.width > str && format.flags.precision == -1)
-	{
-		if (string[0] == '-')
-			while (j++ < format.flags.width - str - 1)
-				start++;
-		while (j++ < format.flags.width)
-			print[start++] = string[i++];
-	}
-	else
-		while (j++ < str)
-			print[start++] = string[i++];
+	print = assignint_helper(string, print, format, start, str);
 	return (print);
 }
 

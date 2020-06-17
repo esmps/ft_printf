@@ -41,15 +41,14 @@ typedef struct fmt
 	
 }			t_fmt;
 
-
 int		ft_printf(const char *fmt, ...);
 char	*ft_fmtstr(char *string, t_fmt format);
 char	*ft_fmtint(char *string, t_fmt format);
 char	*ft_fmtchar(char character, t_fmt format);
 char	*intspecifiers(char c, int64_t integer, t_fmt format, t_print *printint);
+char	*assignint_helper(char *string, char *print, t_fmt format, int64_t start, int64_t str);
 char	*charspecifiers(char *string, t_fmt format, t_print *printint);
 char	*readspec(const char fmt, va_list ap, t_fmt *format);
-char	*ft_printstring(char *print, char *spec, t_print printint);
 char	*ft_fmtptr(char *string, t_fmt format);
 char	*ft_argdi(int64_t decimal, t_fmt format);
 char	*ft_argu(uint64_t unsignedint, t_fmt format);
@@ -67,6 +66,5 @@ int		process(va_list ap, const char *fmt);
 int64_t	strlenint(const char *fmt);
 
 t_flags	*initflags(t_flags *subspec);
-t_flags	*assignflags(const char *fmt, int64_t arg, t_flags *subspec);
 
 #endif

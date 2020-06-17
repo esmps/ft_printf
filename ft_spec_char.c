@@ -50,3 +50,33 @@ char	*ft_argpercent(t_fmt format)
 	print = ft_fmtchar('%', format);
 	return (print);
 }
+
+char	*assignint_helper(char *string, char *print, t_fmt format, int64_t start, int64_t str)
+{
+	int	j;
+	int	i;
+
+	i = 0;
+	j = 0;
+	if (string[i] == '-')
+		i++;
+	if (format.flags.precision > str)
+	{
+		while (j++ < format.flags.precision - str)
+			print[start++] = '0';
+		while (j++ <= format.flags.precision)
+			print[start++] = string[i++];
+	}
+	else if (format.flags.leftal == 0 && format.flags.zero == 1 && format.flags.width > str && format.flags.precision == -1)
+	{
+		if (string[0] == '-')
+			while (j++ < format.flags.width - str - 1)
+				start++;
+		while (j++ < format.flags.width)
+			print[start++] = string[i++];
+	}
+	else
+		while (j++ < str)
+			print[start++] = string[i++];
+	return (print);
+}

@@ -46,7 +46,6 @@ char	*charspecifiers(char *string, t_fmt format, t_print *printint)
 	return (print);
 }
 
-
 char	*readspec(const char fmt, va_list ap, t_fmt *format)
 {
 	char	*temp;
