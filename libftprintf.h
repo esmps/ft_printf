@@ -27,17 +27,20 @@ typedef struct flags
 	int64_t	width;
 }			t_flags;
 
-typedef struct fmt
-{
-	struct flags	flags;
-}			t_fmt;
-
 typedef struct print
 {
 	int64_t	len;
 	int64_t	templen;
-	int64_t last_pos;
+	int64_t	last_pos;
 }			t_print;
+
+typedef struct fmt
+{
+	struct flags	flags;
+	struct print	print;
+	
+}			t_fmt;
+
 
 int		ft_printf(const char *fmt, ...);
 char	*ft_fmtstr(char *string, t_fmt format);
@@ -45,7 +48,7 @@ char	*ft_fmtint(char *string, t_fmt format);
 char	*ft_fmtchar(char character, t_fmt format);
 char	*intspecifiers(char c, int64_t integer, t_fmt format, t_print *printint);
 char	*charspecifiers(char *string, t_fmt format, t_print *printint);
-char	*readspec(const char fmt, va_list ap, t_fmt format, t_print *printint);
+char	*readspec(const char fmt, va_list ap, t_fmt *format);
 char	*ft_printstring(char *print, char *spec, t_print printint);
 char	*ft_fmtptr(char *string, t_fmt format);
 char	*ft_argdi(int64_t decimal, t_fmt format);
@@ -60,6 +63,7 @@ char	*ft_argpercent(t_fmt format);
 int		isflag(char c);
 int		isspec(char c);
 int		set_flag(va_list ap, const char *fmt, t_fmt *format);
+int		process(va_list ap, const char *fmt);
 int64_t	strlenint(const char *fmt);
 
 t_flags	*initflags(t_flags *subspec);

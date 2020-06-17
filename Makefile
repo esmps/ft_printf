@@ -16,6 +16,7 @@ SRCS =		ft_printf.c		\
 		ft_verifiers.c		\
 		ft_printstring.c	\
 		ft_specifiers.c		\
+		ft_process.c		\
 
 BONUSSRCS = 
 
