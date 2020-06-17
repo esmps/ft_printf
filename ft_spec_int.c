@@ -69,9 +69,8 @@ char	*assignint(char *string, char *print, t_fmt format, int64_t start)
 	else if (format.flags.leftal == 0 && format.flags.zero == 1
 		&& format.flags.width > str && format.flags.precision == -1)
 	{
-		if (string[0] == '-')
-			while (j++ < format.flags.width - str - 1)
-				start++;
+		while (string[0] == '-' && j++ < format.flags.width - str - 1)
+			start++;
 		print = ft_strncpy(print + start, string + i, format.flags.width - j);
 	}
 	else
