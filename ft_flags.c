@@ -13,7 +13,7 @@
 #include "libftprintf.h"
 #include "libft/libft.h"
 
-t_flags	*initflags(t_flags *subspec)
+t_flags			*initflags(t_flags *subspec)
 {
 	subspec->zero = 0;
 	subspec->leftal = 0;
@@ -24,9 +24,9 @@ t_flags	*initflags(t_flags *subspec)
 
 static int64_t	int_to_string(const char *fmt)
 {
-	int		i;
+	int			i;
 	int64_t		res;
-	char	*str;
+	char		*str;
 
 	i = 0;
 	res = 0;
@@ -55,9 +55,9 @@ static t_flags	*precision(const char *fmt, int64_t arg, t_flags *subspec)
 
 static t_flags	*assignflags(const char *fmt, int64_t arg, t_flags *subspec)
 {
-	int64_t	 x;
+	int64_t		x;
 
-	x = 0;	
+	x = 0;
 	if (*fmt == '0')
 		subspec->zero = 1;
 	else if (*fmt == '-')
@@ -78,10 +78,10 @@ static t_flags	*assignflags(const char *fmt, int64_t arg, t_flags *subspec)
 	return (subspec);
 }
 
-int	set_flag(va_list ap, const char *fmt, t_fmt *format)
+int				set_flag(va_list ap, const char *fmt, t_fmt *format)
 {
-	int		arg;
-	int		i;
+	int			arg;
+	int			i;
 
 	i = 0;
 	arg = 0;

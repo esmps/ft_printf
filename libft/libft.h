@@ -60,6 +60,7 @@ char				**ft_split(char const *s, char c);
 char				*ft_itoa_hex(long long int num, int letter);
 char				*ft_itoa_unsigned(uint64_t n);
 char				*ft_strnew(size_t len);
+char				*ft_strncpy(char *dst, const char *src, size_t len);
 
 size_t				ft_strlcat(char *dst, const char *src, size_t dstsize);
 size_t				ft_strlcpy(char *dst, const char *src, size_t dstsize);

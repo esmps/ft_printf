@@ -16,9 +16,8 @@
 char	*ft_argdi(int64_t decimal, t_fmt format)
 {
 	char	*print;
-	int newdecimal = (int)decimal;
 
-	print = ft_itoa(newdecimal);
+	print = ft_itoa((int)decimal);
 	print = ft_fmtint(print, format);
 	return (print);
 }
@@ -47,5 +46,35 @@ char	*ft_argxcap(int64_t hexcap, t_fmt format)
 
 	print = ft_itoa_hex(hexcap, 1);
 	print = ft_fmtint(print, format);
+	return (print);
+}
+
+char	*assignint(char *string, char *print, t_fmt format, int64_t start)
+{
+	int64_t	j;
+	int64_t	i;
+	int64_t	str;
+
+	i = 0;
+	j = 0;
+	str = actual_str_len(string, format);
+	if (string[i] == '-')
+		print[start++] = string[i++];
+	if (format.flags.precision > str)
+	{
+		while (j++ < format.flags.precision - str)
+			print[start++] = '0';
+		ft_strncpy(print + start, string + i, format.flags.precision - j + 1);
+	}
+	else if (format.flags.leftal == 0 && format.flags.zero == 1
+		&& format.flags.width > str && format.flags.precision == -1)
+	{
+		if (string[0] == '-')
+			while (j++ < format.flags.width - str - 1)
+				start++;
+		print = ft_strncpy(print + start, string + i, format.flags.width - j);
+	}
+	else
+		print = ft_strncpy(print + start, string + i, str - j);
 	return (print);
 }

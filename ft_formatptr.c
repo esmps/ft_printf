@@ -29,7 +29,7 @@ static int64_t	fmtptrlen(char *string, t_fmt format)
 static int64_t	setstart(int64_t strlen, t_fmt format)
 {
 	int64_t	start;
-	
+
 	if (format.flags.leftal == 0 && format.flags.width > strlen)
 		start = format.flags.width - strlen;
 	else
@@ -37,61 +37,56 @@ static int64_t	setstart(int64_t strlen, t_fmt format)
 	return (start);
 }
 
-static char	*allocptr(int64_t strlen, t_fmt format)
+static char		*allocptr(int64_t strlen, t_fmt format)
 {
 	int64_t	len;
 	char	*print;
 
 	len = format.flags.width >= strlen ? format.flags.width : strlen;
 	print = ft_strnew(len);
-	if (strlen > format.flags.width) // || format.flags.zero == 1 ?
+	if (strlen > format.flags.width)
 		ft_memset(print, '0', len);
 	else
 		ft_memset(print, ' ', len);
 	return (print);
 }
 
-static char	*assignptr(char *print, char *string, int64_t strlen, int64_t start, t_fmt format)
+static char		*assignptr(char *print, char *string,
+	int64_t start, t_fmt format)
 {
-	int	i;
+	int		i;
+	int64_t	strlen;
 
 	i = 2;
+	strlen = fmtptrlen(string, format);
 	print[start++] = '0';
 	print[start++] = 'x';
-	if (format.flags.precision > (int64_t)ft_strlen(string) - 2 && format.flags.width < format.flags.precision)
-	{
+	if (format.flags.precision > (int64_t)ft_strlen(string) - 2
+		&& format.flags.width < format.flags.precision)
 		while (start < format.flags.precision - (int64_t)ft_strlen(string) + 4)
 			start++;
-	}
-	if (strlen > format.flags.width)
-	{
-		while (start < strlen)
-			print[start++] = string[i++];
-	}
-	else if (format.flags.leftal == 1)
-	{
-		while (start < strlen)
-			print[start++] = string[i++];
-	}
+	if (strlen > format.flags.width || (format.flags.leftal == 1))
+		print = ft_strncpy(print + start, string + i, strlen - start);
 	else
 	{
-		while (start < format.flags.width - (int64_t)ft_strlen(string) + 2 && format.flags.leftal == 0)
+		while (start < format.flags.width - (int64_t)ft_strlen(string)
+			+ 2 && format.flags.leftal == 0)
 			print[start++] = '0';
-		while (start < format.flags.width)
-			print[start++] = string[i++];
+		print = ft_strncpy(print + start, string + i,
+			format.flags.width - start);
 	}
-	return (print);	
+	return (print);
 }
 
-char	*ft_fmtptr(char *string, t_fmt format)
+char			*ft_fmtptr(char *string, t_fmt format)
 {
 	int64_t	strlen;
 	int64_t	start;
-	char 	*print;
+	char	*print;
 
 	strlen = fmtptrlen(string, format);
 	start = setstart(strlen, format);
 	print = allocptr(strlen, format);
-	assignptr(print, string, strlen, start, format);
+	assignptr(print, string, start, format);
 	return (print);
 }

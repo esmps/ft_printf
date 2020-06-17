@@ -13,10 +13,9 @@
 #include "libftprintf.h"
 #include "libft/libft.h"
 
-
-static int64_t setstart(t_fmt format)
+static int64_t	setstart(t_fmt format)
 {
-	int64_t start;
+	int64_t	start;
 
 	start = 0;
 	if (format.flags.width > 1 && format.flags.leftal == 0)
@@ -26,7 +25,7 @@ static int64_t setstart(t_fmt format)
 	return (start);
 }
 
-static char	*allocchar(t_fmt format)
+static char		*allocchar(t_fmt format)
 {
 	int64_t	len;
 	char	*print;
@@ -42,14 +41,13 @@ static char	*allocchar(t_fmt format)
 	return (print);
 }
 
-char	*ft_fmtchar(char character, t_fmt format)
+char			*ft_fmtchar(char character, t_fmt format)
 {
 	char	*print;
-	int64_t	start;	
+	int64_t	start;
 
 	start = setstart(format);
 	print = allocchar(format);
 	print[start] = character;
 	return (print);
 }
-

@@ -16,8 +16,8 @@
 static char	*ft_printstring(char *print, char *spec, t_print printint)
 {
 	char	*printstring;
-	int	x;
-	int	y;
+	int		x;
+	int		y;
 
 	x = 0;
 	y = 0;
@@ -35,7 +35,8 @@ static char	*ft_printstring(char *print, char *spec, t_print printint)
 	return (printstring);
 }
 
-static char	*process_non_fmt(const char *fmt, int i, char *print, t_print *printint)
+static char	*process_non_fmt(const char *fmt, int i,
+	char *print, t_print *printint)
 {
 	char	*temp;
 
@@ -53,67 +54,71 @@ static char	*process_non_fmt(const char *fmt, int i, char *print, t_print *print
 		printint->templen = printint->len - ft_strlen(temp);
 		temp = ft_printstring(print, temp, *printint);
 		printint->templen = printint->len;
-		free (print);
+		free(print);
 		print = temp;
 	}
 	return (print);
 }
 
-static char	*process_spec_fmt(const char fmt, char *print, va_list ap, t_fmt *format)
+static char	*process_spec_fmt(const char fmt, char *print,
+	va_list ap, t_fmt *format)
 {
 	char	*temp;
 
 	temp = readspec(fmt, ap, format);
 	temp = ft_printstring(print, temp, format->print);
-	free (print);
+	free(print);
 	print = temp;
 	format->print.templen = format->print.len;
 	return (print);
 }
 
-static char	*process_flag_spec(const char *fmt, char *print, int *i, va_list ap, t_fmt *format)
+static char	*process_flag_spec(const char *fmt, char *print,
+	int *i, va_list ap, t_fmt *format)
 {
 	if (fmt[*i + 1] == '\0')
 		print = process_non_fmt(fmt, *i, print, &format->print);
 	else if (fmt[*i] == '%')
 	{
 		initflags(&format->flags);
-		if (isspec(fmt[*i + 1]) == 1 || isflag(fmt[*i + 1]) == 1 || (fmt[*i + 1] >= '1' && fmt[*i + 1] <= '9'))
+		if (isspec(fmt[*i + 1]) == 1 || isflag(fmt[*i + 1]) == 1
+			|| (fmt[*i + 1] >= '1' && fmt[*i + 1] <= '9'))
 		{
-			print = process_non_fmt(fmt, *i, print, &format->print);	
+			print = process_non_fmt(fmt, *i, print, &format->print);
 			(*i)++;
 			while (isflag(fmt[*i]) || (fmt[*i] >= '1' && fmt[*i] <= '9'))
 				*i += set_flag(ap, &fmt[*i], format);
 			if (isspec(fmt[*i]))
-				print = process_spec_fmt(fmt[*i], print, ap, format);	
+				print = process_spec_fmt(fmt[*i], print, ap, format);
 		}
 		format->print.last_pos = *i + 1;
 	}
 	return (print);
 }
 
-int		process(va_list ap, const char *fmt)
+int			process(va_list ap, const char *fmt)
 {
 	char	*print;
 	int		i;
 	t_fmt	format;
 
 	i = 0;
-	ft_memset((&(format.print)), 0, sizeof(format.print));
 	print = ft_strnew(0);
+	ft_memset((&(format.print)), 0, sizeof(format.print));
 	while (fmt && fmt[i])
-	{	
+	{
 		if (fmt[i] == '%' || fmt[i + 1] == '\0')
-		{	
+		{
 			print = process_flag_spec(fmt, print, &i, ap, &format);
 			i++;
 		}
 		else
 		{
-			i++;
 			format.print.len++;
+			i++;
 		}
 	}
 	write(1, print, format.print.len);
-	return(format.print.len);
+	free(print);
+	return (format.print.len);
 }

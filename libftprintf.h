@@ -46,7 +46,7 @@ char	*ft_fmtstr(char *string, t_fmt format);
 char	*ft_fmtint(char *string, t_fmt format);
 char	*ft_fmtchar(char character, t_fmt format);
 char	*intspecifiers(char c, int64_t integer, t_fmt format, t_print *printint);
-char	*assignint_helper(char *string, char *print, t_fmt format, int64_t start, int64_t str);
+char	*assignint(char *string, char *print, t_fmt format, int64_t start);
 char	*charspecifiers(char *string, t_fmt format, t_print *printint);
 char	*readspec(const char fmt, va_list ap, t_fmt *format);
 char	*ft_fmtptr(char *string, t_fmt format);
@@ -63,6 +63,7 @@ int		isflag(char c);
 int		isspec(char c);
 int		set_flag(va_list ap, const char *fmt, t_fmt *format);
 int		process(va_list ap, const char *fmt);
+int64_t	actual_str_len(char *string, t_fmt format);
 int64_t	strlenint(const char *fmt);
 
 t_flags	*initflags(t_flags *subspec);

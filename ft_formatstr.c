@@ -48,24 +48,18 @@ static char	*allocstring(int64_t strlen, t_fmt format)
 	return (print);
 }
 
-static char	*assignstr(char *print, char *string, int64_t strlen, int64_t start, t_fmt format)
+static char	*assignstr(char *print, char *string, int64_t start, t_fmt format)
 {
 	int	i;
+	int64_t	strlen;
 
-	i = 0;	
+	i = 0;
+	strlen = fmtstrlen(string, format);
 	if (format.flags.leftal == 1)
-	{
-		while (start < strlen)
-			print[start++] = string[i++];
-	}
+		ft_strncpy(print + start, string + i, strlen - start);
 	else
-	{
-			// add zero flag here? undefined behav. but if i feel like it sure.
-		while (start < (int64_t)ft_strlen(print))
-			print[start++] = string[i++];
-	}
+		ft_strncpy(print + start, string + i, ((int64_t)ft_strlen(print) - start));
 	return (print);	
-
 }
 
 char	*ft_fmtstr(char *string, t_fmt format)
@@ -79,7 +73,7 @@ char	*ft_fmtstr(char *string, t_fmt format)
 	strlen = fmtstrlen(string, format);
 	start = setstart(strlen, format);
 	print = allocstring(strlen, format);
-	assignstr(print, string, strlen, start, format);
+	assignstr(print, string, start, format);
 	return (print);
 }
 

@@ -13,6 +13,22 @@
 #include "libftprintf.h"
 #include "libft/libft.h"
 
+int64_t			actual_str_len(char *string, t_fmt format)
+{
+	int64_t	str;
+
+	if (string[0] == '-')
+	{
+		str = (int64_t)ft_strlen(string) - 1;
+	}
+	else if (string[0] == '0' && string[1] == '\0'
+		&& format.flags.precision == 0)
+		str = 0;
+	else
+		str = (int64_t)ft_strlen(string);
+	return (str);
+}
+
 static int64_t	fmtstrlen(char *string, t_fmt format)
 {
 	int64_t	str;
@@ -24,37 +40,34 @@ static int64_t	fmtstrlen(char *string, t_fmt format)
 		str = ft_strlen(string);
 	if (str < format.flags.precision && format.flags.precision > -1)
 		strlen = format.flags.precision;
-	else if ((string[0] == '0' && string[1] == '\0' && format.flags.precision == 0) || string[0] == '\0')
+	else if ((string[0] == '0' && string[1] == '\0' &&
+		format.flags.precision == 0) || string[0] == '\0')
 		strlen = 0;
 	else
 		strlen = str;
-	return (strlen); 
+	return (strlen);
 }
 
-static int64_t setstart(char *string, int64_t strlen, t_fmt format)
+static int64_t	setstart(char *string, int64_t strlen, t_fmt format)
 {
 	int64_t start;
 
 	start = 0;
 	if (string[0] == '-')
 	{
-		if ((format.flags.width > strlen && format.flags.leftal == 0 && format.flags.zero == 0) \
-			|| (format.flags.width > strlen && format.flags.precision > -1 && format.flags.zero == 1 && format.flags.leftal == 0))
+		if ((format.flags.width > strlen && format.flags.leftal == 0
+			&& format.flags.zero == 0) || (format.flags.width > strlen
+			&& format.flags.precision > -1 && format.flags.zero == 1
+			&& format.flags.leftal == 0))
 			start = format.flags.width - strlen - 1;
-		else
-			start = 0;
 	}
-	else
-	{
-		if (format.flags.width > strlen && format.flags.leftal == 0 && strlen > 0)
-			start = format.flags.width - strlen;
-		else
-			start = 0;
-	}
+	else if (format.flags.width > strlen
+		&& format.flags.leftal == 0 && strlen > 0)
+		start = format.flags.width - strlen;
 	return (start);
 }
 
-static char	*allocint(char *string, int64_t strlen, t_fmt format)
+static char		*allocint(char *string, int64_t strlen, t_fmt format)
 {
 	int64_t	len;
 	char	*print;
@@ -64,34 +77,15 @@ static char	*allocint(char *string, int64_t strlen, t_fmt format)
 	else
 		len = format.flags.width >= strlen ? format.flags.width : strlen;
 	print = ft_strnew(len);
-	if (format.flags.leftal == 0 && format.flags.zero == 1 && format.flags.precision == -1)
+	if (format.flags.leftal == 0 && format.flags.zero == 1
+		&& format.flags.precision == -1)
 		ft_memset(print, '0', len);
 	else
 		ft_memset(print, ' ', len);
 	return (print);
 }
 
-static char	*assignint(char *string, char *print, t_fmt format, int64_t start)
-{
-	int64_t i;
-	int64_t str;
-
-	i = 0;
-	if (string[i] == '-')
-	{
-		str = (int64_t)ft_strlen(string) - 1;
-		print[start++] = '-';
-		i++;
-	}
-	else if (string[0] == '0' && string[1] =='\0' && format.flags.precision == 0)
-		str = 0;
-	else
-		str = (int64_t)ft_strlen(string);
-	print = assignint_helper(string, print, format, start, str);
-	return (print);
-}
-
-char	*ft_fmtint(char *string, t_fmt format)
+char			*ft_fmtint(char *string, t_fmt format)
 {
 	char	*print;
 	int64_t	strlen;
