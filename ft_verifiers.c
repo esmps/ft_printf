@@ -19,34 +19,19 @@ int64_t	strlenint(const char *fmt)
 
 	i = 0;
 	if (*fmt >= '0' && *fmt <= '9')
-	{
-		while (*fmt >= '0' && *fmt <= '9')
-		{
+		while (*fmt >= '0' && *fmt++ <= '9')
 			i++;
-			fmt++;
-		}
-	}
 	else
 		i = 1;
 	return (i);
 }
 
-int	isflag(char c)
+int		isflag(char c)
 {
-	int	res;
-
-	res = 0;
-	if (c == '0' || c == '-' || c == '.' || c== '*')
-		res = 1;
-	return (res);
+	return (ft_strchr(".-0*", c) ? 1 : 0);
 }
 
-int	isspec(char c)
+int		isspec(char c)
 {
-	int	res;
-
-	res = 0;
-	if (c == 'c' || c == 's' || c == 'p' || c == 'd' || c == 'i' || c == 'u' || c == 'x' || c == 'X' || c == '%')
-		res = 1;
-	return (res);
+	return (ft_strchr("cspdiuxX%", c) ? 1 : 0);
 }

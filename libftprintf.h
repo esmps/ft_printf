@@ -19,53 +19,55 @@
 # include <stdarg.h>
 # include "libft/libft.h"
 
-typedef struct flags
+typedef struct	s_flags
 {
 	int64_t	zero;
 	int64_t	leftal;
 	int64_t	precision;
 	int64_t	width;
-}			t_flags;
+}				t_flags;
 
-typedef struct print
+typedef struct	s_print
 {
 	int64_t	len;
 	int64_t	templen;
 	int64_t	last_pos;
-}			t_print;
+}				t_print;
 
-typedef struct fmt
+typedef struct	s_fmt
 {
-	struct flags	flags;
-	struct print	print;
-	
-}			t_fmt;
+	struct s_flags	flags;
+	struct s_print	print;
 
-int		ft_printf(const char *fmt, ...);
-char	*ft_fmtstr(char *string, t_fmt format);
-char	*ft_fmtint(char *string, t_fmt format);
-char	*ft_fmtchar(char character, t_fmt format);
-char	*intspecifiers(char c, int64_t integer, t_fmt format, t_print *printint);
-char	*assignint(char *string, char *print, t_fmt format, int64_t start);
-char	*charspecifiers(char *string, t_fmt format, t_print *printint);
-char	*readspec(const char fmt, va_list ap, t_fmt *format);
-char	*ft_fmtptr(char *string, t_fmt format);
-char	*ft_argdi(int64_t decimal, t_fmt format);
-char	*ft_argu(uint64_t unsignedint, t_fmt format);
-char	*ft_argx(int64_t hex, t_fmt format);
-char	*ft_argxcap(int64_t hexcap, t_fmt format);
-char	*ft_argp(int64_t pointer, t_fmt format);
-char	*ft_args(char *string, t_fmt format);
-char	*ft_argc(int64_t character, t_fmt format);
-char	*ft_argpercent(t_fmt format);
+}				t_fmt;
 
-int		isflag(char c);
-int		isspec(char c);
-int		set_flag(va_list ap, const char *fmt, t_fmt *format);
-int		process(va_list ap, const char *fmt);
-int64_t	actual_str_len(char *string, t_fmt format);
-int64_t	strlenint(const char *fmt);
+int				ft_printf(const char *fmt, ...);
+char			*ft_fmtstr(char *string, t_fmt format);
+char			*ft_fmtint(char *string, t_fmt format);
+char			*ft_fmtchar(char character, t_fmt format);
+char			*intspecifiers(char c, int64_t integer,
+					t_fmt format, t_print *printint);
+char			*assignint(char *string, char *print,
+					t_fmt format, int64_t start);
+char			*charspecifiers(char *string, t_fmt format, t_print *printint);
+char			*readspec(const char fmt, va_list ap, t_fmt *format);
+char			*ft_fmtptr(char *string, t_fmt format);
+char			*ft_argdi(int64_t decimal, t_fmt format);
+char			*ft_argu(uint64_t unsignedint, t_fmt format);
+char			*ft_argx(int64_t hex, t_fmt format);
+char			*ft_argxcap(int64_t hexcap, t_fmt format);
+char			*ft_argp(int64_t pointer, t_fmt format);
+char			*ft_args(char *string, t_fmt format);
+char			*ft_argc(int64_t character, t_fmt format);
+char			*ft_argpercent(t_fmt format);
 
-t_flags	*initflags(t_flags *subspec);
+int				isflag(char c);
+int				isspec(char c);
+int				set_flag(va_list ap, const char *fmt, t_fmt *format);
+int				process(va_list ap, const char *fmt);
+int64_t			actual_str_len(char *string, t_fmt format);
+int64_t			strlenint(const char *fmt);
+
+t_flags			*initflags(t_flags *subspec);
 
 #endif

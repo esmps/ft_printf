@@ -31,7 +31,7 @@ char	*intspecifiers(char c, int64_t integer, t_fmt format, t_print *printint)
 	if (c == 'X')
 		print = ft_argxcap(integer, format);
 	if (c == 'c' || c == '%')
-		printint->len += format.flags.width > 1 ? format.flags.width : 1;	
+		printint->len += format.flags.width > 1 ? format.flags.width : 1;
 	else
 		printint->len += (int64_t)ft_strlen(print);
 	return (print);
