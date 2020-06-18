@@ -14,7 +14,7 @@
 
 static size_t	int_len(uint64_t num)
 {
-	int	i;
+	int			i;
 
 	i = 1;
 	while (num /= 10)
@@ -22,27 +22,12 @@ static size_t	int_len(uint64_t num)
 	return (i);
 }
 
-static uint64_t		pow(uint64_t n, uint64_t p)
-{
-	uint64_t	res;
-
-	res = 1;
-	if (p < 0)
-		return (0);
-	while (p)
-	{
-		res = res * n;
-		p--;
-	}
-	return (res);
-}
-
 char			*ft_itoa_unsigned(uint64_t n)
 {
-	size_t	len;
+	size_t		len;
 	uint64_t	x;
-	char	*s;
-	char	*res;
+	char		*s;
+	char		*res;
 
 	len = int_len(n);
 	s = ft_strnew(int_len(n));
@@ -51,7 +36,7 @@ char			*ft_itoa_unsigned(uint64_t n)
 		return (NULL);
 	ft_memset(s, '0', (sizeof(char) * (len + 1)));
 	s[len] = '\0';
-	x = pow(10, len - 1);
+	x = ft_pow(10, len - 1);
 	if (n == 0)
 		s++;
 	while (n)

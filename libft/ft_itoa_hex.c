@@ -1,8 +1,20 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_itoa_hex.c                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: epines-s <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/06/18 01:19:44 by epines-s          #+#    #+#             */
+/*   Updated: 2020/06/18 01:19:48 by epines-s         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "libft.h"
 
 static size_t	int_len(int64_t num)
 {
-	int	i;
+	int		i;
 
 	i = 1;
 	while (num /= 16)
@@ -10,11 +22,11 @@ static size_t	int_len(int64_t num)
 	return (i);
 }
 
-static char	*rev(char *s, int len)
+static char		*rev(char *s, int len)
 {
-	int	i;
+	int		i;
 	char	c;
-	
+
 	i = 0;
 	while (i < len)
 	{
@@ -27,10 +39,10 @@ static char	*rev(char *s, int len)
 	return (s);
 }
 
-char	*calcnum(int64_t num, int letter, char *str)
+char			*calcnum(int64_t num, int letter, char *str)
 {
-	int	rem;
-	int	i;
+	int		rem;
+	int		i;
 
 	i = 0;
 	rem = 0;
@@ -45,26 +57,26 @@ char	*calcnum(int64_t num, int letter, char *str)
 		i++;
 	}
 	str[i] = '\0';
-	return(str);
+	return (str);
 }
 
-char	*ft_itoa_hex(int64_t num, int letter) 
+char			*ft_itoa_hex(int64_t num, int letter)
 {
-	int	i;
+	int		i;
 	char	*str;
 
 	i = 0;
 	if (!(str = ft_strnew(int_len(num))))
-		return NULL;
-	if (num == 0) 
+		return (NULL);
+	if (num == 0)
 	{
 		str[i] = '0';
 		i++;
-		str[i] = '\0';	
-		return (str); 	
+		str[i] = '\0';
+		return (str);
 	}
 	if (num > 0)
 		str = calcnum(num, letter, str);
 	rev(str, ft_strlen(str) - 1);
-	return (str); 
+	return (str);
 }

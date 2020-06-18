@@ -29,7 +29,7 @@ static int64_t	fmtstrlen(char *string, t_fmt format)
 static int64_t	setstart(int64_t strlen, t_fmt format)
 {
 	int64_t	start;
-	
+
 	if (format.flags.leftal == 0 && format.flags.width > strlen)
 		start = format.flags.width - strlen;
 	else
@@ -37,7 +37,7 @@ static int64_t	setstart(int64_t strlen, t_fmt format)
 	return (start);
 }
 
-static char	*allocstring(int64_t strlen, t_fmt format)
+static char		*allocstring(int64_t strlen, t_fmt format)
 {
 	int64_t	len;
 	char	*print;
@@ -48,9 +48,10 @@ static char	*allocstring(int64_t strlen, t_fmt format)
 	return (print);
 }
 
-static char	*assignstr(char *print, char *string, int64_t start, t_fmt format)
+static char		*assignstr(char *print, char *string,
+	int64_t start, t_fmt format)
 {
-	int	i;
+	int		i;
 	int64_t	strlen;
 
 	i = 0;
@@ -58,15 +59,16 @@ static char	*assignstr(char *print, char *string, int64_t start, t_fmt format)
 	if (format.flags.leftal == 1)
 		ft_strncpy(print + start, string + i, strlen - start);
 	else
-		ft_strncpy(print + start, string + i, ((int64_t)ft_strlen(print) - start));
-	return (print);	
+		ft_strncpy(print + start, string + i,
+			((int64_t)ft_strlen(print) - start));
+	return (print);
 }
 
-char	*ft_fmtstr(char *string, t_fmt format)
+char			*ft_fmtstr(char *string, t_fmt format)
 {
 	int64_t	strlen;
 	int64_t	start;
-	char 	*print;
+	char	*print;
 
 	if (string == NULL)
 		string = ft_strdup("(null)");
@@ -76,4 +78,3 @@ char	*ft_fmtstr(char *string, t_fmt format)
 	assignstr(print, string, start, format);
 	return (print);
 }
-

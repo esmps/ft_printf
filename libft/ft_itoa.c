@@ -15,7 +15,7 @@
 
 static size_t	int_len(int num)
 {
-	int	i;
+	int		i;
 
 	i = 1;
 	if (num < 0)
@@ -27,7 +27,7 @@ static size_t	int_len(int num)
 
 static int		pow(int n, int p)
 {
-	int	res;
+	int		res;
 
 	res = 1;
 	if (p < 0)
@@ -43,7 +43,7 @@ static int		pow(int n, int p)
 char			*ft_itoa(int n)
 {
 	size_t	len;
-	int	x;
+	int		x;
 	char	*s;
 	char	*res;
 

@@ -13,7 +13,6 @@
 #include "libftprintf.h"
 #include "libft/libft.h"
 
-
 char	*ft_argc(int64_t character, t_fmt format)
 {
 	char	*print;
