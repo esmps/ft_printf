@@ -38,24 +38,27 @@ static char	*ft_printstring(char *print, char *spec, t_print printint)
 static char	*process_non_fmt(const char *fmt, int i,
 	char *print, t_print *printint)
 {
-	char	*temp;
+	char	*tmp_print;
+	char	*substr_toadd;
 
 	if (fmt[i + 1] == '\0')
 	{
-		temp = ft_substr(fmt, printint->last_pos, i - printint->last_pos + 1);
+		substr_toadd = ft_substr(fmt, printint->last_pos, i - printint->last_pos + 1);
 		printint->len++;
-		temp = ft_printstring(print, temp, *printint);
+		tmp_print = ft_printstring(print, substr_toadd, *printint);
 		free(print);
-		print = temp;
+		free(substr_toadd);
+		print = tmp_print;
 	}
 	else
 	{
-		temp = ft_substr(fmt, printint->last_pos, i - printint->last_pos);
-		printint->templen = printint->len - ft_strlen(temp);
-		temp = ft_printstring(print, temp, *printint);
+		substr_toadd = ft_substr(fmt, printint->last_pos, i - printint->last_pos);
+		printint->templen = printint->len - ft_strlen(substr_toadd);
+		tmp_print = ft_printstring(print, substr_toadd, *printint);
 		printint->templen = printint->len;
+		free(substr_toadd);
 		free(print);
-		print = temp;
+		print = tmp_print;
 	}
 	return (print);
 }
@@ -68,6 +71,7 @@ static char	*process_spec_fmt(const char fmt, char *print,
 
 	spec_print = readspec(fmt, ap, format);
 	tmp_print = ft_printstring(print, spec_print, format->print);
+	free(spec_print);
 	free(print);
 	print = tmp_print;
 	format->print.templen = format->print.len;
