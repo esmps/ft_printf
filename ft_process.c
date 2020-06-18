@@ -73,9 +73,11 @@ static char	*process_spec_fmt(const char fmt, char *print,
 	return (print);
 }
 
-static char	*process_flag_spec(const char *fmt, char *print,
-	int *i, va_list ap, t_fmt *format)
+static char	*process_flag_spec(char *print, int *i, va_list ap, t_fmt *format)
 {
+	const char	*fmt;
+
+	fmt = format->fmt;
 	if (fmt[*i + 1] == '\0')
 		print = process_non_fmt(fmt, *i, print, &format->print);
 	else if (fmt[*i] == '%')
@@ -105,11 +107,12 @@ int			process(va_list ap, const char *fmt)
 	i = 0;
 	print = ft_strnew(0);
 	ft_memset((&(format.print)), 0, sizeof(format.print));
+	format.fmt = fmt;
 	while (fmt && fmt[i])
 	{
 		if (fmt[i] == '%' || fmt[i + 1] == '\0')
 		{
-			print = process_flag_spec(fmt, print, &i, ap, &format);
+			print = process_flag_spec(print, &i, ap, &format);
 			i++;
 		}
 		else

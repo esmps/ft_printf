@@ -38,7 +38,7 @@ typedef struct	s_fmt
 {
 	struct s_flags	flags;
 	struct s_print	print;
-
+	const char		*fmt;
 }				t_fmt;
 
 int				ft_printf(const char *fmt, ...);
