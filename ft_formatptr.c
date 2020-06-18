@@ -13,12 +13,12 @@
 #include "libftprintf.h"
 #include "libft/libft.h"
 
-static int64_t	fmtptrlen(char *string, t_fmt format)
+static int64_t	fmtptrlen(char *ptr_str, t_fmt format)
 {
 	int64_t	str;
 	int64_t	strlen;
 
-	str = (int64_t)ft_strlen(string) - 2;
+	str = (int64_t)ft_strlen(ptr_str) - 2;
 	if (str < format.flags.precision && format.flags.precision > 0)
 		strlen = format.flags.precision + 2;
 	else
@@ -51,42 +51,42 @@ static char		*allocptr(int64_t strlen, t_fmt format)
 	return (print);
 }
 
-static char		*assignptr(char *print, char *string,
+static char		*assignptr(char *print, char *ptr_str,
 	int64_t start, t_fmt format)
 {
 	int		i;
 	int64_t	strlen;
 
 	i = 2;
-	strlen = fmtptrlen(string, format);
+	strlen = fmtptrlen(ptr_str, format);
 	print[start++] = '0';
 	print[start++] = 'x';
-	if (format.flags.precision > (int64_t)ft_strlen(string) - 2
+	if (format.flags.precision > (int64_t)ft_strlen(ptr_str) - 2
 		&& format.flags.width < format.flags.precision)
-		while (start < format.flags.precision - (int64_t)ft_strlen(string) + 4)
+		while (start < format.flags.precision - (int64_t)ft_strlen(ptr_str) + 4)
 			start++;
 	if (strlen > format.flags.width || (format.flags.leftal == 1))
-		print = ft_strncpy(print + start, string + i, strlen - start);
+		print = ft_strncpy(print + start, ptr_str + i, strlen - start);
 	else
 	{
-		while (start < format.flags.width - (int64_t)ft_strlen(string)
+		while (start < format.flags.width - (int64_t)ft_strlen(ptr_str)
 			+ 2 && format.flags.leftal == 0)
 			print[start++] = '0';
-		print = ft_strncpy(print + start, string + i,
+		print = ft_strncpy(print + start, ptr_str + i,
 			format.flags.width - start);
 	}
 	return (print);
 }
 
-char			*ft_fmtptr(char *string, t_fmt format)
+char			*ft_fmtptr(char *ptr_str, t_fmt format)
 {
 	int64_t	strlen;
 	int64_t	start;
 	char	*print;
 
-	strlen = fmtptrlen(string, format);
+	strlen = fmtptrlen(ptr_str, format);
 	start = setstart(strlen, format);
 	print = allocptr(strlen, format);
-	assignptr(print, string, start, format);
+	assignptr(print, ptr_str, start, format);
 	return (print);
 }

@@ -16,36 +16,44 @@
 char	*ft_argdi(int64_t decimal, t_fmt format)
 {
 	char	*print;
+	char	*tmp_dec;
 
-	print = ft_itoa((int)decimal);
-	print = ft_fmtint(print, format);
+	tmp_dec = ft_itoa((int)decimal);
+	print = ft_fmtint(tmp_dec, format);
+	free(tmp_dec);
 	return (print);
 }
 
 char	*ft_argu(uint64_t unsignedint, t_fmt format)
 {
 	char	*print;
+	char	*tmp_unsigned;
 
-	print = ft_itoa_unsigned(unsignedint);
-	print = ft_fmtint(print, format);
+	tmp_unsigned = ft_itoa_unsigned(unsignedint);
+	print = ft_fmtint(tmp_unsigned, format);
+	free(tmp_unsigned);
 	return (print);
 }
 
 char	*ft_argx(int64_t hex, t_fmt format)
 {
 	char	*print;
+	char	*tmp_hex;
 
-	print = ft_itoa_hex(hex, 0);
-	print = ft_fmtint(print, format);
+	tmp_hex = ft_itoa_hex(hex, 0);
+	print = ft_fmtint(tmp_hex, format);
+	free(tmp_hex);
 	return (print);
 }
 
 char	*ft_argxcap(int64_t hexcap, t_fmt format)
 {
 	char	*print;
+	char	*tmp_hex;
 
-	print = ft_itoa_hex(hexcap, 1);
-	print = ft_fmtint(print, format);
+	tmp_hex = ft_itoa_hex(hexcap, 1);
+	print = ft_fmtint(tmp_hex, format);
+	free(tmp_hex);
 	return (print);
 }
 
@@ -64,16 +72,19 @@ char	*assignint(char *string, char *print, t_fmt format, int64_t start)
 	{
 		while (j++ < format.flags.precision - str)
 			print[start++] = '0';
-		ft_strncpy(print + start, string + i, format.flags.precision - j + 1);
+		while (j++ <= format.flags.precision)
+			print[start++] = string[i++];
 	}
 	else if (format.flags.leftal == 0 && format.flags.zero == 1
 		&& format.flags.width > str && format.flags.precision == -1)
 	{
 		while (string[0] == '-' && j++ < format.flags.width - str - 1)
 			start++;
-		print = ft_strncpy(print + start, string + i, format.flags.width - j);
+		while (j++ < format.flags.width && string[i] != '\0')
+			print[start++] = string[i++];
 	}
 	else
-		print = ft_strncpy(print + start, string + i, str - j);
+		while (j++ < str)
+			print[start++] = string[i++];
 	return (print);
 }

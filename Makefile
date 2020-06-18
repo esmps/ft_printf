@@ -34,7 +34,7 @@ $(NAME): $(LIBFT)
 		ar rc $(NAME) $(OBJS) 
 		ranlib $(NAME)
 test: $(NAME)
-		gcc -o test -fsanitize=address -g $(NAME) maintest.c
+		gcc -o test -g $(NAME) maintest.c
 
 clean:
 		/bin/rm -f $(OBJS)

@@ -63,12 +63,13 @@ static char	*process_non_fmt(const char *fmt, int i,
 static char	*process_spec_fmt(const char fmt, char *print,
 	va_list ap, t_fmt *format)
 {
-	char	*temp;
+	char	*tmp_print;
+	char	*spec_print;
 
-	temp = readspec(fmt, ap, format);
-	temp = ft_printstring(print, temp, format->print);
+	spec_print = readspec(fmt, ap, format);
+	tmp_print = ft_printstring(print, spec_print, format->print);
 	free(print);
-	print = temp;
+	print = tmp_print;
 	format->print.templen = format->print.len;
 	return (print);
 }

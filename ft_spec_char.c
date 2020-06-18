@@ -32,11 +32,16 @@ char	*ft_args(char *string, t_fmt format)
 char	*ft_argp(int64_t pointer, t_fmt format)
 {
 	char	*print;
+	char	*tmp_ptr;
+	char	*tmp_print;
 
-	print = ft_strdup("0x");
+	tmp_ptr = ft_itoa_hex(pointer, 0);
 	if (format.flags.precision != 0)
-		print = ft_strjoin(print, ft_itoa_hex(pointer, 0));
-	print = ft_fmtptr(print, format);
+		tmp_print = ft_strjoin("0x", tmp_ptr);
+	else
+		tmp_print = ft_strdup("0x");
+	print = ft_fmtptr(tmp_print, format);
+	free(tmp_ptr);
 	return (print);
 }
 
@@ -44,8 +49,6 @@ char	*ft_argpercent(t_fmt format)
 {
 	char	*print;
 
-	print = ft_strnew(1);
-	print[0] = '%';
 	print = ft_fmtchar('%', format);
 	return (print);
 }
