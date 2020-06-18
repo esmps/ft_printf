@@ -42,6 +42,7 @@ char	*ft_argp(int64_t pointer, t_fmt format)
 		tmp_print = ft_strdup("0x");
 	print = ft_fmtptr(tmp_print, format);
 	free(tmp_ptr);
+	free(tmp_print);
 	return (print);
 }
 

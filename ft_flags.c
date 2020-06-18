@@ -34,6 +34,7 @@ static int64_t	int_to_string(const char *fmt)
 	while (*fmt >= '0' && *fmt <= '9')
 		str[i++] = *fmt++;
 	res = ft_atoi(str);
+	free(str);
 	return (res);
 }
 

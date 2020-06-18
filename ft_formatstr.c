@@ -69,12 +69,16 @@ char			*ft_fmtstr(char *string, t_fmt format)
 	int64_t	strlen;
 	int64_t	start;
 	char	*print;
+	char	*fmt_str;
 
 	if (string == NULL)
-		string = ft_strdup("(null)");
-	strlen = fmtstrlen(string, format);
+		fmt_str = ft_strdup("(null)");
+	else
+		fmt_str = ft_strdup(string);
+	strlen = fmtstrlen(fmt_str, format);
 	start = setstart(strlen, format);
 	print = allocstring(strlen, format);
-	assignstr(print, string, start, format);
+	assignstr(print, fmt_str, start, format);
+	free(fmt_str);
 	return (print);
 }
