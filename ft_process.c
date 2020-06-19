@@ -43,7 +43,8 @@ static char	*process_non_fmt(const char *fmt, int i,
 
 	if (fmt[i + 1] == '\0')
 	{
-		substr_toadd = ft_substr(fmt, printint->last_pos, i - printint->last_pos + 1);
+		substr_toadd = ft_substr(fmt, printint->last_pos,
+			i - printint->last_pos + 1);
 		printint->len++;
 		tmp_print = ft_printstring(print, substr_toadd, *printint);
 		free(print);
@@ -52,7 +53,8 @@ static char	*process_non_fmt(const char *fmt, int i,
 	}
 	else
 	{
-		substr_toadd = ft_substr(fmt, printint->last_pos, i - printint->last_pos);
+		substr_toadd = ft_substr(fmt, printint->last_pos,
+			i - printint->last_pos);
 		printint->templen = printint->len - ft_strlen(substr_toadd);
 		tmp_print = ft_printstring(print, substr_toadd, *printint);
 		printint->templen = printint->len;

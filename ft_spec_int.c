@@ -72,19 +72,16 @@ char	*assignint(char *string, char *print, t_fmt format, int64_t start)
 	{
 		while (j++ < format.flags.precision - str)
 			print[start++] = '0';
-		while (j++ <= format.flags.precision)
-			print[start++] = string[i++];
+		print = ft_strncpy(print + start, string + i, str);
 	}
 	else if (format.flags.leftal == 0 && format.flags.zero == 1
 		&& format.flags.width > str && format.flags.precision == -1)
 	{
 		while (string[0] == '-' && j++ < format.flags.width - str - 1)
 			start++;
-		while (j++ < format.flags.width && string[i] != '\0')
-			print[start++] = string[i++];
+		print = ft_strncpy(print + start, string + i, str);
 	}
 	else
-		while (j++ < str)
-			print[start++] = string[i++];
+		print = ft_strncpy(print + start, string + i, str);
 	return (print);
 }
