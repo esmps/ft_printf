@@ -115,7 +115,7 @@ int			process(va_list ap, const char *fmt)
 	print = ft_strnew(0);
 	ft_memset((&(format.print)), 0, sizeof(format.print));
 	format.fmt = fmt;
-	while (fmt && fmt[i])
+	while (fmt[i])
 	{
 		if (fmt[i] == '%' || fmt[i + 1] == '\0')
 		{

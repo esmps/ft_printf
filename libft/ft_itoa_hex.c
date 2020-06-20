@@ -12,7 +12,7 @@
 
 #include "libft.h"
 
-static size_t	int_len(int64_t num)
+static size_t	int_len(uint64_t num)
 {
 	int		i;
 
@@ -39,7 +39,7 @@ static char		*rev(char *s, int len)
 	return (s);
 }
 
-char			*calcnum(int64_t num, int letter, char *str)
+char			*calcnum(uint64_t num, int letter, char *str)
 {
 	int		rem;
 	int		i;
@@ -60,7 +60,7 @@ char			*calcnum(int64_t num, int letter, char *str)
 	return (str);
 }
 
-char			*ft_itoa_hex(int64_t num, int letter)
+char			*ft_itoa_hex(uint64_t num, int letter)
 {
 	int		i;
 	char	*str;

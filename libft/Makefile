@@ -70,7 +70,7 @@ OBJS = $(SRCS:.c=.o)
 all: $(NAME)
 
 $(NAME):
-		gcc -c $(FLAGS) -I $(HEADER) $(SRCS)
+		gcc -c $(FLAGS) -g -I $(HEADER) $(SRCS)
 		ar rc $(NAME) $(OBJS)
 		ranlib $(NAME)
 clean:

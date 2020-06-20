@@ -62,7 +62,7 @@ static char		*assignptr(char *print, char *ptr_str,
 	print[start++] = '0';
 	print[start++] = 'x';
 	if (format.flags.precision > (int64_t)ft_strlen(ptr_str) - 2
-		&& format.flags.width < format.flags.precision)
+		&& format.flags.width < format.flags.precision && format.flags.leftal == 0)
 		while (start < format.flags.precision - (int64_t)ft_strlen(ptr_str) + 4)
 			start++;
 	if (strlen > format.flags.width || (format.flags.leftal == 1))

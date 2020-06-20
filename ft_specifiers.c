@@ -61,10 +61,10 @@ char	*readspec(const char fmt, va_list ap, t_fmt *format)
 	{
 		if (fmt == '%')
 			arg = 0;
-		else if (fmt == 'u')
-			arg = va_arg(ap, uint64_t);
+		else if (fmt == 'u' || fmt == 'x' || fmt == 'X')
+			arg = (int64_t)va_arg(ap, uint32_t);
 		else
-			arg = va_arg(ap, int64_t);
+			arg = (int64_t)va_arg(ap, int64_t);
 		temp = intspecifiers(fmt, arg, *format, &format->print);
 	}
 	return (temp);

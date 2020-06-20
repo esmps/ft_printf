@@ -57,7 +57,7 @@ char				*ft_substr(char const *s, unsigned int start, size_t len);
 char				*ft_strjoin(char const *s1, char const *s2);
 char				*ft_strtrim(char const *s1, char const *set);
 char				**ft_split(char const *s, char c);
-char				*ft_itoa_hex(long long int num, int letter);
+char				*ft_itoa_hex(uint64_t num, int letter);
 char				*ft_itoa_unsigned(uint64_t n);
 char				*ft_strnew(size_t len);
 char				*ft_strncpy(char *dst, const char *src, size_t len);

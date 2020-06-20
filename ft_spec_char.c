@@ -36,10 +36,12 @@ char	*ft_argp(int64_t pointer, t_fmt format)
 	char	*tmp_print;
 
 	tmp_ptr = ft_itoa_hex(pointer, 0);
-	if (format.flags.precision != 0)
-		tmp_print = ft_strjoin("0x", tmp_ptr);
-	else
+	if (pointer == 0 && format.flags.precision == 0)
 		tmp_print = ft_strdup("0x");
+	else if (pointer == 0)
+		tmp_print = ft_strdup("0x0");
+	else
+		tmp_print = ft_strjoin("0x", tmp_ptr);
 	print = ft_fmtptr(tmp_print, format);
 	free(tmp_ptr);
 	free(tmp_print);

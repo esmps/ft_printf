@@ -35,7 +35,7 @@ char	*ft_argu(uint64_t unsignedint, t_fmt format)
 	return (print);
 }
 
-char	*ft_argx(int64_t hex, t_fmt format)
+char	*ft_argx(uint64_t hex, t_fmt format)
 {
 	char	*print;
 	char	*tmp_hex;
@@ -46,7 +46,7 @@ char	*ft_argx(int64_t hex, t_fmt format)
 	return (print);
 }
 
-char	*ft_argxcap(int64_t hexcap, t_fmt format)
+char	*ft_argxcap(uint64_t hexcap, t_fmt format)
 {
 	char	*print;
 	char	*tmp_hex;
