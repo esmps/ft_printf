@@ -25,21 +25,6 @@ static size_t	int_len(int num)
 	return (i);
 }
 
-static int		pow(int n, int p)
-{
-	int		res;
-
-	res = 1;
-	if (p < 0)
-		return (0);
-	while (p)
-	{
-		res = res * n;
-		p--;
-	}
-	return (res);
-}
-
 char			*ft_itoa(int n)
 {
 	size_t	len;
@@ -54,7 +39,7 @@ char			*ft_itoa(int n)
 		return (NULL);
 	ft_memset(s, '0', (sizeof(char) * (len)));
 	s[len] = '\0';
-	x = pow(10, len - 1 - (n < 0));
+	x = ft_pow(10, len - 1 - (n < 0));
 	if (n == 0)
 		s++;
 	if (n < 0)

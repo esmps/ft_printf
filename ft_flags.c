@@ -56,9 +56,6 @@ static t_flags	*precision(const char *fmt, int64_t arg, t_flags *subspec)
 
 static t_flags	*assignflags(const char *fmt, int64_t arg, t_flags *subspec)
 {
-	int64_t		x;
-
-	x = 0;
 	if (*fmt == '0')
 		subspec->zero = 1;
 	else if (*fmt == '-')

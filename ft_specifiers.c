@@ -48,14 +48,14 @@ char	*charspecifiers(char *string, t_fmt format, t_print *printint)
 
 char	*readspec(const char fmt, va_list ap, t_fmt *format)
 {
-	char	*temp;
+	char	*print;
 	char	*strarg;
 	int64_t	arg;
 
 	if (fmt == 's')
 	{
 		strarg = va_arg(ap, void *);
-		temp = charspecifiers(strarg, *format, &format->print);
+		print = charspecifiers(strarg, *format, &format->print);
 	}
 	else
 	{
@@ -65,7 +65,7 @@ char	*readspec(const char fmt, va_list ap, t_fmt *format)
 			arg = (int64_t)va_arg(ap, uint32_t);
 		else
 			arg = (int64_t)va_arg(ap, int64_t);
-		temp = intspecifiers(fmt, arg, *format, &format->print);
+		print = intspecifiers(fmt, arg, *format, &format->print);
 	}
-	return (temp);
+	return (print);
 }

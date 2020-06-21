@@ -22,7 +22,7 @@ static size_t	int_len(uint64_t num)
 	return (i);
 }
 
-static char		*rev(char *s, int len)
+static char		*ft_rev(char *s, int len)
 {
 	int		i;
 	char	c;
@@ -39,7 +39,7 @@ static char		*rev(char *s, int len)
 	return (s);
 }
 
-char			*calcnum(uint64_t num, int letter, char *str)
+char			*ft_calcnum(uint64_t num, int letter, char *str)
 {
 	int		rem;
 	int		i;
@@ -76,7 +76,7 @@ char			*ft_itoa_hex(uint64_t num, int letter)
 		return (str);
 	}
 	if (num > 0)
-		str = calcnum(num, letter, str);
-	rev(str, ft_strlen(str) - 1);
+		str = ft_calcnum(num, letter, str);
+	ft_rev(str, ft_strlen(str) - 1);
 	return (str);
 }

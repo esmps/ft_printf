@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_fmtptr.c                                        :+:      :+:    :+:   */
+/*   ft_formatptr.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: epines-s <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/11 06:21:19 by epines-s          #+#    #+#             */
-/*   Updated: 2020/06/11 07:05:20 by epines-s         ###   ########.fr       */
+/*   Updated: 2020/06/19 19:51:33 by epines-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,8 +61,8 @@ static char		*assignptr(char *print, char *ptr_str,
 	strlen = fmtptrlen(ptr_str, format);
 	print[start++] = '0';
 	print[start++] = 'x';
-	if (format.flags.precision > (int64_t)ft_strlen(ptr_str) - 2
-		&& format.flags.width < format.flags.precision && format.flags.leftal == 0)
+	if (format.flags.precision > (int64_t)ft_strlen(ptr_str) - 2 &&
+		format.flags.width < format.flags.precision && format.flags.leftal == 0)
 		while (start < format.flags.precision - (int64_t)ft_strlen(ptr_str) + 4)
 			start++;
 	if (strlen > format.flags.width || (format.flags.leftal == 1))
